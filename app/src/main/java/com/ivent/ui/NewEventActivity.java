@@ -1,9 +1,11 @@
 package com.ivent.ui;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ public class NewEventActivity extends ActionBarActivity {
     private EditText editName;
 
     // event location
-    private EditText editLoation;
+    private EditText editLocation;
 
     // event description
     private EditText editDetail;
@@ -49,21 +51,60 @@ public class NewEventActivity extends ActionBarActivity {
     * */
 
 
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
 
-            /* get the input values */
-         year = (Spinner) findViewById(R.id.newevent_year);
-         month = (Spinner) findViewById(R.id.newevent_month);
-         date = (Spinner) findViewById(R.id.newevent_date);
-         time = (Spinner) findViewById(R.id.newevent_time);
-         category = (Spinner) findViewById(R.id.newevent_category);
-         editDetail = (EditText) findViewById(R.id.edit_detail);
-         editLoation = (EditText) findViewById(R.id.edit_location);
-         editName = (EditText) findViewById(R.id.edit_name);
-         uploadImage = (ImageView) findViewById(R.id.imageViewUpload);
+            /* IO objects, get the input values */
+        year = (Spinner) findViewById(R.id.newevent_year);
+        month = (Spinner) findViewById(R.id.newevent_month);
+        date = (Spinner) findViewById(R.id.newevent_date);
+        time = (Spinner) findViewById(R.id.newevent_time);
+        category = (Spinner) findViewById(R.id.newevent_category);
+        editDetail = (EditText) findViewById(R.id.edit_detail);
+        editLocation = (EditText) findViewById(R.id.edit_location);
+        editName = (EditText) findViewById(R.id.edit_name);
+        uploadImage = (ImageView) findViewById(R.id.imageViewUpload);
+        addFriendsButton = (Button) findViewById(R.id.newevent_add_friends_button);
+
+        editDetail.getText();
+        editLocation.getText();
+        editName.getText();
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        addFriendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        //set up adapter view
+        ArrayAdapter<CharSequence> adapterYear = ArrayAdapter.createFromResource(
+                this, R.array.year_array,
+                android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterMonth = ArrayAdapter.createFromResource(
+                this, R.array.month_array,
+                android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterDate = ArrayAdapter.createFromResource(
+                this, R.array.date_array,
+                android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterTime = ArrayAdapter.createFromResource(
+                this, R.array.time_array,
+                android.R.layout.simple_spinner_item);
+
+        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterDate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        year.setAdapter(adapterYear);
+        month.setAdapter(adapterMonth);
+        date.setAdapter(adapterDate);
+        time.setAdapter(adapterTime);
     }
 
 

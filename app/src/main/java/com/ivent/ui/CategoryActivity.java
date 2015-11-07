@@ -1,12 +1,16 @@
 package com.ivent.ui;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.com.ivent.ui.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,16 +21,38 @@ public class CategoryActivity extends ActionBarActivity {
     *   Variables may needed in implementation
     * */
 
-     private List<Map<String, Object>> events; // a list that contains the events of a category
+    private List<Map<String, Object>> events; // a list that contains the events of a category
+
+    private ListView listView;
+
+    private ArrayList<HashMap<String, String>> eventList = new ArrayList<HashMap<String, String>>();
 
     /*
     *   End of possible variables
     * */
 
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        //UI objects
+        listView = (ListView) findViewById(R.id.listView);
+
+        //example to show category list
+        HashMap<String, String> tmp = new HashMap<>();
+        tmp = new HashMap<String, String>();
+        tmp.put("event", "Halloween Party");
+        eventList.add(tmp);//modify this
+        tmp = new HashMap<String, String>();
+        tmp.put("event", "Spring Festival Party");
+        eventList.add(tmp);
+        tmp = new HashMap<String, String>();
+        tmp.put("event", "Movie night");
+        eventList.add(tmp);
+        SimpleAdapter sa = new SimpleAdapter(this, eventList, android.R.layout.simple_list_item_2,
+                new String[]{"event"}, new int[]{android.R.id.text2});
+        listView.setAdapter(sa);
     }
 
 

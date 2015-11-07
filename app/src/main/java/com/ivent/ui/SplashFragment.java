@@ -1,4 +1,4 @@
-package com.ivent;
+package com.ivent.ui;
 
 import android.app.Activity;
 import android.net.Uri;
