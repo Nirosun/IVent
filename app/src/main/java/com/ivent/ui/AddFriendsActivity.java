@@ -21,10 +21,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//Activity to let user select friend with checkbox and add them
 public class AddFriendsActivity extends ActionBarActivity {
+
     Button doneButton;
     ListView friendListView;
     List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+
     String[] name = new String[]{"Shan Gao", "Zack Zuo"};
     Object[] icons = new Object[]{R.drawable.shan, R.drawable.zhengyang};
 
@@ -33,13 +36,22 @@ public class AddFriendsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friends);
 
+        //UI objects
         friendListView = (ListView) this.findViewById(R.id.friend_list_view);
         doneButton = (Button) this.findViewById(R.id.add_friend_done_button);
+
+        //read values
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         showCheckBoxListView();
 
     }
 
+    //set up check box list view
     public void showCheckBoxListView() {
 
         for (int i = 0; i < name.length; i++) {
@@ -56,15 +68,15 @@ public class AddFriendsActivity extends ActionBarActivity {
         }
     }
 
-
+    //self defined adapter to show add friend list
     public static class MyAdapter extends BaseAdapter {
         public static HashMap<Integer, Boolean> isSelected;
         private Context context = null;
         private LayoutInflater inflater = null;
         private List<HashMap<String, Object>> list = null;
         private String keyString[] = null;
-        private String itemString = null; // 记录每个item中textview的值
-        private int idValue[] = null;// id值
+        private String itemString = null;
+        private int idValue[] = null;
 
         public MyAdapter(Context context, List<HashMap<String, Object>> list,
                          int resource, String[] from, int[] to) {
@@ -78,7 +90,7 @@ public class AddFriendsActivity extends ActionBarActivity {
             init();
         }
 
-        // 初始化 设置所有checkbox都为未选择
+        // initialize check box as false
         public void init() {
             isSelected = new HashMap<Integer, Boolean>();
             for (int i = 0; i < list.size(); i++) {
@@ -126,6 +138,7 @@ public class AddFriendsActivity extends ActionBarActivity {
 
     }
 
+    //Class of three componets to show an item of adding friend
     public static class HolderView {
         public ImageView iv = null;
         public TextView tv = null;

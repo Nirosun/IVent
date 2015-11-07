@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.com.ivent.ui.R;
 
+//Activity to let user create a post
 public class CreatePostActivity extends ActionBarActivity {
 
     EditText edit_post;
@@ -21,9 +23,18 @@ public class CreatePostActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
 
+        //UI objects
         edit_post = (EditText) findViewById(R.id.edit_post_textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         addImageButton = (Button) findViewById(R.id.add_image_button);
+
+        //read values
+        edit_post.getText();
+        addImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
 

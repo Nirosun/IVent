@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.ivent.util.MessagesListAdapter;
 
 import java.util.ArrayList;
 
+//Activity to let users chat with each other
 public class ChatActivity extends ActionBarActivity {
 
     private ListView chatListView;
@@ -29,10 +31,20 @@ public class ChatActivity extends ActionBarActivity {
         setContentView(R.layout.activity_chat);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        //UI objects
         chatListView = (ListView) findViewById(R.id.chat_list_view);
         editText = (EditText) findViewById(R.id.edit_chat);
         chatButton = (Button) findViewById(R.id.chat_button);
 
+        //read values
+        editText.getText();
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        //Example to show chat list
         ArrayList<Message> listMessages = new ArrayList<Message>();
         listMessages.add(new Message("Zack Zuo", "Hello Everybody.", R.drawable.zhengyang, false));
         listMessages.add(new Message("Shan Gao", "Hi Zack. Anyone else here?", R.drawable.shan, false));

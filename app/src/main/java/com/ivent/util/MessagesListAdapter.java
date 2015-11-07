@@ -14,7 +14,7 @@ import com.com.ivent.ui.R;
 
 import java.util.List;
 
-
+//An self defined adapter to show message list
 public class MessagesListAdapter extends BaseAdapter {
 
     private Context context;

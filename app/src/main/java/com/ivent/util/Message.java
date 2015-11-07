@@ -1,7 +1,8 @@
 package com.ivent.util;
 
-
+//Message object aims to carry user information and message
 public class Message {
+
     private String fromName, message;
     private boolean isSelf;
 
