@@ -126,8 +126,7 @@
             android:layout_marginRight="0.5dip"
             android:text="Add Friends"
             android:id="@+id/newevent_add_button"
-            android:textColor="#FFFFFF"
-            android:background="#ff2d9e61" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:layout_width="match_parent"
@@ -136,8 +135,7 @@
             android:layout_marginRight="0.5dip"
             android:text="Done"
             android:id="@+id/newevent_done_button"
-            android:textColor="#FFFFFF"
-            android:background="#ff2d9e61" />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

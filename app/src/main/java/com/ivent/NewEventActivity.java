@@ -51,6 +51,17 @@ public class NewEventActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
+
+            /* get the input values */
+         year = (Spinner) findViewById(R.id.newevent_year);
+         month = (Spinner) findViewById(R.id.newevent_month);
+         date = (Spinner) findViewById(R.id.newevent_date);
+         time = (Spinner) findViewById(R.id.newevent_time);
+         category = (Spinner) findViewById(R.id.newevent_category);
+         editDetail = (EditText) findViewById(R.id.edit_detail);
+         editLoation = (EditText) findViewById(R.id.edit_location);
+         editName = (EditText) findViewById(R.id.edit_name);
+         uploadImage = (ImageView) findViewById(R.id.imageViewUpload);
     }
 
 
