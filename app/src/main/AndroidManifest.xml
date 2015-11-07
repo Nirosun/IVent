@@ -1,9 +1,36 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.ivent">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.com.ivent.ui">
 
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher" android:supportsRtl="true"
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name="com.ivent.ui.EventDescriptionActivity"
+            android:label="@string/title_activity_event_description"></activity>
+        <activity
+            android:name="com.ivent.ui.PostActivity"
+            android:label="@string/title_activity_post"></activity>
+        <activity
+            android:name="com.ivent.ui.AddFriendsActivity"
+            android:label="@string/title_activity_add_friends"></activity>
+        <activity
+            android:name="com.ivent.ui.CreatePostActivity"
+            android:label="@string/title_activity_create_post">
 
+        </activity>
+        <activity
+            android:name="com.ivent.ui.ChatActivity"
+            android:label="@string/title_activity_chat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

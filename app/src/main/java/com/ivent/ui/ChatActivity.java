@@ -1,0 +1,65 @@
+package com.ivent.ui;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import com.com.ivent.ui.R;
+import com.ivent.util.Message;
+import com.ivent.util.MessagesListAdapter;
+
+import java.util.ArrayList;
+
+public class ChatActivity extends ActionBarActivity {
+
+    private ListView chatListView;
+    private EditText editText;
+    private Button chatButton;
+    private MessagesListAdapter adapter;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        chatListView = (ListView) findViewById(R.id.chat_list_view);
+        editText = (EditText) findViewById(R.id.edit_chat);
+        chatButton = (Button) findViewById(R.id.chat_button);
+
+        ArrayList<Message> listMessages = new ArrayList<Message>();
+        listMessages.add(new Message("Zack Zuo", "Hello Everybody.", R.drawable.zhengyang, false));
+        listMessages.add(new Message("Shan Gao", "Hi Zack. Anyone else here?", R.drawable.shan, false));
+        adapter = new MessagesListAdapter(this, listMessages);
+        chatListView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_event_description, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+}
