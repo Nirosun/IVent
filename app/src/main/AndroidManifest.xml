@@ -17,11 +17,7 @@
         <activity
             android:name="com.ivent.ui.AddFriendsActivity"
             android:label="@string/title_activity_add_friends">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.ivent.ui.CreatePostActivity"
@@ -30,8 +26,20 @@
         </activity>
         <activity
             android:name="com.ivent.ui.ChatActivity"
-            android:label="@string/title_activity_chat">
+            android:label="@string/title_activity_chat"></activity>
 
+        <activity
+            android:name="com.ivent.ui.CategoryActivity"
+            android:label="@string/title_activity_category">
+
+        </activity>
+        <activity
+            android:name="com.ivent.ui.NewEventActivity"
+            android:label="@string/title_activity_new_event">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
