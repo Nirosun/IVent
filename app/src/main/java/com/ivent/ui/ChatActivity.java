@@ -23,13 +23,15 @@ public class ChatActivity extends ActionBarActivity {
     private EditText editText;
     private Button chatButton;
     private MessagesListAdapter adapter;
-
+    private ArrayList<Message> listMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        listMessages = new ArrayList<Message>();
 
         //UI objects
         chatListView = (ListView) findViewById(R.id.chat_list_view);
@@ -41,11 +43,13 @@ public class ChatActivity extends ActionBarActivity {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listMessages.add( new Message("Shan Gao", editText.getText().toString(), R.drawable.shan,false));
+                adapter = new MessagesListAdapter(ChatActivity.this, listMessages);
+                chatListView.setAdapter(adapter);
             }
         });
 
         //Example to show chat list
-        ArrayList<Message> listMessages = new ArrayList<Message>();
         listMessages.add(new Message("Zack Zuo", "Hello Everybody.", R.drawable.zhengyang, false));
         listMessages.add(new Message("Shan Gao", "Hi Zack. Anyone else here?", R.drawable.shan, false));
         adapter = new MessagesListAdapter(this, listMessages);

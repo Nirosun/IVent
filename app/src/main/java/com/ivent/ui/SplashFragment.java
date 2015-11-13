@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.com.ivent.ui.R;
 
@@ -19,11 +20,12 @@ import com.com.ivent.ui.R;
  * Use the {@link SplashFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SplashFragment extends Fragment {
+public class SplashFragment extends Fragment{
 
     /*
     *   There is no possible instance variables in the class cause this class only provide a button to login
     * */
+    private Button login;
 
 
      // TODO: Rename parameter arguments, choose names that match
@@ -62,6 +64,8 @@ public class SplashFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

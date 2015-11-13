@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.widget.AdapterView;
+import android.content.Intent;
+import android.view.View;
 
 
 public class CategoryActivity extends ActionBarActivity {
@@ -20,8 +23,6 @@ public class CategoryActivity extends ActionBarActivity {
     /*
     *   Variables may needed in implementation
     * */
-
-    private List<Map<String, Object>> events; // a list that contains the events of a category
 
     private ListView listView;
 
@@ -37,7 +38,7 @@ public class CategoryActivity extends ActionBarActivity {
         setContentView(R.layout.activity_category);
 
         //UI objects
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.category_list);
 
         //example to show category list
         HashMap<String, String> tmp = new HashMap<>();
@@ -53,6 +54,19 @@ public class CategoryActivity extends ActionBarActivity {
         SimpleAdapter sa = new SimpleAdapter(this, eventList, android.R.layout.simple_list_item_2,
                 new String[]{"event"}, new int[]{android.R.id.text2});
         listView.setAdapter(sa);
+
+        /* Create a new Intent, next activity will be EventDescription, pass the eventName */
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int pos,
+                                    long id) {
+                Intent intent = new Intent(CategoryActivity.this, EventDescriptionActivity.class);
+                intent.putExtra("eventName",  (String)eventList.get( (int)id ).get("event"));
+                startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -70,6 +84,14 @@ public class CategoryActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        item.setOnMenuItemClickListener( new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent new_event = new Intent(CategoryActivity.this, NewEventActivity.class);
+                startActivity(new_event);
+                return true;
+            }
+        });
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;

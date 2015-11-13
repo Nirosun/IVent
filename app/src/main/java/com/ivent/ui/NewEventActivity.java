@@ -1,5 +1,6 @@
 package com.ivent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -79,6 +80,17 @@ public class NewEventActivity extends ActionBarActivity {
         addFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent add_friends = new Intent(NewEventActivity.this, AddFriendsActivity.class);
+                /* put the other information of events to the add_friend_activity */
+                add_friends.putExtra("eventName", editName.getText().toString());
+                add_friends.putExtra("year", year.toString());
+                add_friends.putExtra("month", month.toString());
+                add_friends.putExtra("date", date.toString());
+                add_friends.putExtra("time", time.toString());
+                add_friends.putExtra("location", editLocation.getText().toString());
+                add_friends.putExtra("detail", editDetail.getText().toString());
+                // put image here
+                startActivity(add_friends);
             }
         });
 
