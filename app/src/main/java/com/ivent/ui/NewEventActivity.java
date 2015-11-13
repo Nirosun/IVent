@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.com.ivent.ui.R;
+import com.ivent.R;
 
 
 public class NewEventActivity extends ActionBarActivity {

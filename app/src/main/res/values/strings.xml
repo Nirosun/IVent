@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">IVent</string>
     <string name="title_activity_add_friends">Add Friends</string>
+
+
+    <string name="facebook_app_id">1637855536479645</string>
     <string name="title_activity_event_description">Event Description</string>
     <string name="title_activity_post">Post</string>
     <string name="title_activity_create_post">Create Post</string>

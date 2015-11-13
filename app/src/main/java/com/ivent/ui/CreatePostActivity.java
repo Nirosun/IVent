@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.com.ivent.ui.R;
+import com.ivent.R;
+
 
 //Activity to let user create a post
 public class CreatePostActivity extends ActionBarActivity {

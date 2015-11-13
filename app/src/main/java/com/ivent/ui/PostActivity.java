@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.com.ivent.ui.R;
+import com.ivent.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.com.ivent.ui.R;
+import com.ivent.R;
 import com.ivent.util.Message;
 import com.ivent.util.MessagesListAdapter;
 
