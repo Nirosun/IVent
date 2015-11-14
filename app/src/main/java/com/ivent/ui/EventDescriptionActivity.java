@@ -1,5 +1,6 @@
 package com.ivent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -40,12 +41,16 @@ public class EventDescriptionActivity extends ActionBarActivity {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent chat_activity = new Intent(EventDescriptionActivity.this, ChatActivity.class);
+                startActivity(chat_activity);
             }
         });
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent post_activity = new Intent(EventDescriptionActivity.this, PostActivity.class);
+                startActivity(post_activity);
             }
         });
 
