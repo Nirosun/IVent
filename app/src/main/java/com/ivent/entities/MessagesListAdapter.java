@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.com.ivent.ui.R;
+import com.ivent.R;
 import com.ivent.entities.model.DisplayedMessage;
 
 import java.util.List;

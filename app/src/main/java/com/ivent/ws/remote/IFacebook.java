@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Luciferre on 11/13/15.
+ * This interface is for methods that deal with connection and communication
+ * with Facebook
  */
 public interface IFacebook {
 
+    //request facebook user id
     public Long getFacebookID();
 
+    //request facebook events
     public List<Map<String, Object>> getFacebookEvents();
 
 }

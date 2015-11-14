@@ -1,11 +1,14 @@
 package com.ivent.ws.local;
 
+
 /**
- * Created by Luciferre on 11/13/15.
+ * This interface is for audio service
  */
 public interface IAudioService {
 
+    //start play audio
     public void start();
 
+    //stop play audio
     public void stop();
 }

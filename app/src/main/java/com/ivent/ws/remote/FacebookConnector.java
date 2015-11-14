@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Luciferre on 11/13/15.
+ * This class is for send request and get response with Facebook
  */
 public class FacebookConnector implements IFacebook {
 
     private static final String TAG = "debug";
 
+    //request facebook user id
     public Long getFacebookID() {
         GraphResponse graphResponse = new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -40,6 +41,7 @@ public class FacebookConnector implements IFacebook {
         return facebookId;
     }
 
+    //request facebook events
     public List<Map<String, Object>> getFacebookEvents() {
         final List<String> eventIDs = new ArrayList<>();
         GraphResponse eventsResponse = new GraphRequest(

@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Created by Luciferre on 11/4/15.
- */
+
 public class iVentException extends Exception {
 
     private int errorNo;//error number

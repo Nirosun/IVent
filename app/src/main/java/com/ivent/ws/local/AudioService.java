@@ -4,7 +4,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 
 /**
- * Created by Luciferre on 11/13/15.
+ * This class is for create an audio service
  */
 public class AudioService implements IAudioService {
 
@@ -14,10 +14,12 @@ public class AudioService implements IAudioService {
         player = MediaPlayer.create(context, id);
     }
 
+    //start play audio
     public void start() {
         player.start();
     }
 
+    //stop play audio
     public void stop() {
         player.stop();
     }

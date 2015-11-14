@@ -5,10 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
-/**
- * Created by Luciferre on 11/4/15.
- */
-
 //Fix exception
 public class FixHelper {
 

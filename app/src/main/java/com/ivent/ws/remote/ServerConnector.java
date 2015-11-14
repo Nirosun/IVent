@@ -6,7 +6,7 @@ import java.net.URL;
 import java.nio.charset.MalformedInputException;
 
 /**
- * This class is for setup and maintain connectino with the server, and provide
+ * This class is for setup and maintain connection with the server
  */
 public class ServerConnector implements IServerInteraction {
     HttpURLConnection connection;
