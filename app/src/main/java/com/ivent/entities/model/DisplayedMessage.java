@@ -26,6 +26,14 @@ public class DisplayedMessage {
         this.icon = icon;
     }
 
+    // FIXME: Just for demoing, create dummy message
+    public DisplayedMessage(String fromName, String text, int icon, boolean isSelf) {
+        this.fromName = fromName;
+        this.message = new ChatMessage(-1, 1, -1, text, -1);
+        this.isSelf = isSelf;
+        this.icon = icon;
+    }
+
     public String getFromName() {
         return fromName;
     }
