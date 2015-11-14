@@ -1,4 +1,4 @@
-package com.ivent.util;
+package com.ivent.entities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,16 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.com.ivent.ui.R;
+import com.ivent.entities.model.DisplayedMessage;
 
 import java.util.List;
 
-//An self defined adapter to show message list
+/**
+ * A self defined adapter to show message list
+ */
 public class MessagesListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Message> messagesItems;
+    private List<DisplayedMessage> messagesItems;
 
-    public MessagesListAdapter(Context context, List<Message> navDrawerItems) {
+    public MessagesListAdapter(Context context, List<DisplayedMessage> navDrawerItems) {
         this.context = context;
         this.messagesItems = navDrawerItems;
     }
@@ -49,7 +52,7 @@ public class MessagesListAdapter extends BaseAdapter {
          * are showing incorrect data Add the solution if you have one
          * */
 
-        Message m = messagesItems.get(position);
+        DisplayedMessage m = messagesItems.get(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -69,7 +72,7 @@ public class MessagesListAdapter extends BaseAdapter {
         TextView txtMsg = (TextView) convertView.findViewById(R.id.chat_info);
         ImageView icon = (ImageView) convertView.findViewById(R.id.chat_icon);
 
-        txtMsg.setText(m.getMessage());
+        txtMsg.setText(m.getMessage().getText());
         lblFrom.setText(m.getFromName());
         icon.setImageResource(m.getIcon());
 

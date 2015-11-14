@@ -1,6 +1,7 @@
 package com.ivent.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -44,6 +45,11 @@ public class AddFriendsActivity extends ActionBarActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(AddFriendsActivity.this, EventDescriptionActivity.class);
+
+                intent.putExtra("eventName", getIntent().getExtras().getString("eventName") );
+                startActivity(intent);
+
             }
         });
 

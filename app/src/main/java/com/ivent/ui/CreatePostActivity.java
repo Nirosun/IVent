@@ -1,5 +1,6 @@
 package com.ivent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -17,7 +18,7 @@ public class CreatePostActivity extends ActionBarActivity {
 
     EditText edit_post;
     ImageView imageView;
-    Button addImageButton;
+    Button addImageButton,doneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,25 @@ public class CreatePostActivity extends ActionBarActivity {
         edit_post = (EditText) findViewById(R.id.edit_post_textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         addImageButton = (Button) findViewById(R.id.add_image_button);
+        doneButton = (Button) findViewById(R.id.done_button);
 
         //read values
         edit_post.getText();
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back_to_post = new Intent(CreatePostActivity.this, PostActivity.class);
+                back_to_post.putExtra("title","Shan");
+                back_to_post.putExtra("info", edit_post.getText().toString());
+                back_to_post.putExtra("icon",R.drawable.shan);
+                startActivity(back_to_post);
+            }
+        });
+
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
     }

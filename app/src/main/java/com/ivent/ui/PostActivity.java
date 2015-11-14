@@ -1,5 +1,6 @@
 package com.ivent.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -36,6 +37,8 @@ public class PostActivity extends ActionBarActivity {
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent create_post = new Intent(PostActivity.this, CreatePostActivity.class);
+                startActivity(create_post);
             }
         });
 
@@ -46,6 +49,8 @@ public class PostActivity extends ActionBarActivity {
         map.put("info", "Happy Halloween~ The party will be held at Cohon University Center on October 31st. Enjoy it!");
         map.put("icon", R.drawable.shan);
         postList.add(map);
+
+
         simpleAdapter = new SimpleAdapter(this, postList, R.layout.post_item,
                 new String[]{"title", "info", "icon"},
                 new int[]{R.id.post_title, R.id.post_info, R.id.post_icon});
