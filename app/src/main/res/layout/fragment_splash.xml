@@ -3,8 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="#fff" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -13,6 +12,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:weightSum="1">
+
         <ImageView
             android:id="@+id/splash_icon"
             android:layout_width="200dp"
@@ -21,16 +21,17 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:src="@drawable/ivent_logo"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:src="@drawable/ivent_logo" />
     </LinearLayout>
 
     <Button
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login With Facebook"
-        android:id="@+id/login_button"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="#3e9cb9"
+        android:text="Login With Facebook" />
 
 
     <!-- need import facebook -->
