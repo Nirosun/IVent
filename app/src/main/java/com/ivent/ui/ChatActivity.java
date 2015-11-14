@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.com.ivent.ui.R;
-import com.ivent.util.Message;
-import com.ivent.util.MessagesListAdapter;
+import com.ivent.entities.model.DisplayedMessage;
+import com.ivent.entities.MessagesListAdapter;
 
 import java.util.ArrayList;
 
@@ -45,9 +45,9 @@ public class ChatActivity extends ActionBarActivity {
         });
 
         //Example to show chat list
-        ArrayList<Message> listMessages = new ArrayList<Message>();
-        listMessages.add(new Message("Zack Zuo", "Hello Everybody.", R.drawable.zhengyang, false));
-        listMessages.add(new Message("Shan Gao", "Hi Zack. Anyone else here?", R.drawable.shan, false));
+        ArrayList<DisplayedMessage> listMessages = new ArrayList<DisplayedMessage>();
+        listMessages.add(new DisplayedMessage("Zack Zuo", "Hello Everybody.", R.drawable.zhengyang, false));
+        listMessages.add(new DisplayedMessage("Shan Gao", "Hi Zack. Anyone else here?", R.drawable.shan, false));
         adapter = new MessagesListAdapter(this, listMessages);
         chatListView.setAdapter(adapter);
     }

@@ -1,21 +1,28 @@
-package com.ivent.util;
+package com.ivent.entities.model;
 
-//Message object aims to carry user information and message
-public class Message {
+/**
+ * This class represents a message that can be displayed on ui
+ */
+public class DisplayedMessage {
+    // the user's name that creates this message
+    private String fromName;
 
-    private String fromName, message;
+    // the real message
+    private Message message;
+
+    // whether this message comes from the user self
     private boolean isSelf;
 
+    // resource id for icon
     private int icon;
 
-    public Message() {
+    public DisplayedMessage() {
     }
 
-    public Message(String fromName, String message, int icon, boolean isSelf) {
+    public DisplayedMessage(String fromName, Message message, int icon, boolean isSelf) {
         this.fromName = fromName;
         this.message = message;
         this.isSelf = isSelf;
-
         this.icon = icon;
     }
 
@@ -27,11 +34,11 @@ public class Message {
         this.fromName = fromName;
     }
 
-    public String getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
