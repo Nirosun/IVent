@@ -1,19 +1,19 @@
 package com.ivent.entities.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * This class represents an event
  */
 public class Event {
-    // event id
-    private long id;
-
     // event name
     private String name;
 
     // event start time
-    private Date eventTime;
+    private Timestamp eventTime;
+
+    // event category name
+    private String category_name;
 
     // event location
     private String location;
@@ -28,24 +28,17 @@ public class Event {
 
     }
 
-    public Event(long id, String name, Date eventTime, String location,
-                 String description, String imageLink) {
+    public Event(long id, String name, Timestamp eventTime, String location,
+                 String description, String category_name, String imageLink) {
         super();
-        this.id = id;
         this.name = name;
         this.eventTime = eventTime;
         this.location = location;
         this.description = description;
         this.imageLink = imageLink;
+        this.category_name = category_name;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -55,11 +48,15 @@ public class Event {
         this.name = name;
     }
 
-    public Date getEventTime() {
+    public void setCategory_name(String name) {this.category_name = name;}
+
+    public String getCategory_name() { return this.category_name;}
+
+    public Timestamp getEventTime() {
         return eventTime;
     }
 
-    public void setEventTime(Date eventTime) {
+    public void setEventTime(Timestamp eventTime) {
         this.eventTime = eventTime;
     }
 

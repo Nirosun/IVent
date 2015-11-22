@@ -1,40 +1,20 @@
 package com.ivent.entities.model;
 
 public class User {
-    // user id
-    private long id;
-
-    // Facebook id for the user
-    private long fbId;
-
     // name of user
     private String name;
+
+    // password of user
+    private String password;
 
     public User() {
 
     }
 
-    public User(long id, long fbId, String name) {
+    public User(String name, String password) {
         super();
-        this.id = id;
-        this.fbId = fbId;
         this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getFbId() {
-        return fbId;
-    }
-
-    public void setFbId(long fbId) {
-        this.fbId = fbId;
+        this.password = password;
     }
 
     public String getName() {
@@ -45,5 +25,7 @@ public class User {
         this.name = name;
     }
 
+    public void setPassword(String password) {this.password = password;}
 
+    public String getPassword() {return this.password;}
 }
