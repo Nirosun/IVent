@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 
-public class iVentException extends Exception {
+public class IVentException extends Exception {
 
     private int errorNo;//error number
 
@@ -35,7 +35,7 @@ public class iVentException extends Exception {
 
     }
 
-    public iVentException(ExceptionEnum exceptionEnum) {
+    public IVentException(ExceptionEnum exceptionEnum) {
         this.errorNo = exceptionEnum.getErrorNumber();
         this.errorMsg = exceptionEnum.toString();
         log();

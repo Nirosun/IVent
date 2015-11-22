@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.ivent.R;
-import com.ivent.entities.MessagesListAdapter;
+import com.ivent.ui.adapter.MessagesListAdapter;
 import com.ivent.entities.model.DisplayedMessage;
 
 import java.util.ArrayList;
