@@ -44,7 +44,7 @@ public class PostActivity extends ActionBarActivity {
 
         //Example to show post list
         List<Map<String, Object>> postList = new ArrayList<Map<String, Object>>();
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("title", "Shan");
         map.put("info", "Happy Halloween~ The party will be held at Cohon University Center on October 31st. Enjoy it!");
         map.put("icon", R.drawable.shan);
