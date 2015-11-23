@@ -1,5 +1,7 @@
 package com.ivent.entities.model;
 
+import java.sql.Timestamp;
+
 /**
  * This class represents a post. It's a message with an image link
  */
@@ -7,8 +9,12 @@ public class Post extends Message {
     // link to the image in the post
 	private String imageLink;
 
-	public Post(long id, long userId, long eventId, String postText, long ts, String imageLink) {
-		super(id, userId, eventId, postText, ts);
+    public Post() {
+
+    }
+
+	public Post(String username, String event_name, String text, Timestamp ts, String imageLink) {
+		super(username, event_name, text, ts);
 		this.imageLink = imageLink;
 	}
 

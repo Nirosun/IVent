@@ -43,7 +43,7 @@ public class FacebookConnector implements IFacebook {
 
     //request facebook events
     public List<Map<String, Object>> getFacebookEvents() {
-        final List<String> eventIDs = new ArrayList<>();
+        final List<String> eventIDs = new ArrayList<String>();
         GraphResponse eventsResponse = new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "/me/events",
@@ -58,7 +58,7 @@ public class FacebookConnector implements IFacebook {
         Log.d(TAG, "Between getting eventIDs and events");
 
         //get events
-        List<GraphRequest> requests = new ArrayList<>();
+        List<GraphRequest> requests = new ArrayList<GraphRequest>();
         for (String id : eventIDs) {
             requests.add(
                     new GraphRequest(
@@ -72,7 +72,7 @@ public class FacebookConnector implements IFacebook {
         GraphRequestBatch batch = new GraphRequestBatch(requests);
         List<GraphResponse> responses = batch.executeAndWait();
 
-        final List<Map<String, Object>> events = new ArrayList<>();
+        final List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
         for (GraphResponse res : responses) {
             Log.d(TAG, "Get FB events: " + res.getRawResponse());
             events.add(JsonTools.getEventFromFB(res.getRawResponse()));

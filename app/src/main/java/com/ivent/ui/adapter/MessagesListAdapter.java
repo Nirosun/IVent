@@ -1,4 +1,4 @@
-package com.ivent.entities;
+package com.ivent.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

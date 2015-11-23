@@ -11,12 +11,10 @@ import com.ivent.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 import android.widget.AdapterView;
 import android.content.Intent;
 import android.view.View;
-
 
 public class CategoryActivity extends ActionBarActivity {
 
@@ -37,11 +35,35 @@ public class CategoryActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        /* test local DB*/
+       /*
+        DatabaseConnector connector = new DatabaseConnector(this);
+        connector.insertUser("shuo", "123");
+        System.out.println(connector.checkUser("shuo", "123"));
+        System.out.println(connector.checkUser("shuo", "1223"));
+
+        connector.insertCategory("shuo_test1");
+        System.out.println( connector.getCategories());
+        connector.insertCategory("shuo_test2");
+        System.out.println( connector.getCategories());
+
+        System.out.println("testing event");
+        Timestamp ts1 = new Timestamp(new Date().getTime());
+        Event test_event = new Event("test1",ts1, "a", "b", "shuo_test1", "link");
+        connector.insertEvent(test_event);
+
+        ArrayList<Event> get_event = connector.getEventOfCategory("shuo_test1");
+        for(int i = 0;i < get_event.size(); i ++){
+           get_event.get(i).eventPrint();
+        }
+        */
+        /* end test */
+
         //UI objects
         listView = (ListView) findViewById(R.id.category_list);
 
         //example to show category list
-        HashMap<String, String> tmp = new HashMap<>();
+        HashMap<String, String> tmp = new HashMap<String, String>();
         tmp = new HashMap<String, String>();
         tmp.put("event", "Halloween Party");
         eventList.add(tmp);//modify this

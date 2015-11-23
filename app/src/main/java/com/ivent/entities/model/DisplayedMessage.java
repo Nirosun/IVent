@@ -1,5 +1,8 @@
 package com.ivent.entities.model;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 /**
  * This class represents a message that can be displayed on ui
  */
@@ -29,7 +32,7 @@ public class DisplayedMessage {
     // FIXME: Just for demoing, create dummy message
     public DisplayedMessage(String fromName, String text, int icon, boolean isSelf) {
         this.fromName = fromName;
-        this.message = new ChatMessage(-1, 1, -1, text, -1);
+        this.message = new ChatMessage(null,null,text, new Timestamp(new Date().getTime()));
         this.isSelf = isSelf;
         this.icon = icon;
     }
