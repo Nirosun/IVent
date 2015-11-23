@@ -9,6 +9,8 @@
     <string name="title_activity_chat">Chat</string>
     <string name="title_activity_category">Category</string>
     <string name="title_activity_new_event">New Event</string>
+    <string name="title_activity_login">iVent</string>
+    <string name="title_activity_category_list">Category List</string>
 
     <string name="edit_post">Enter a post here</string>
     <string name="action_settings">Settings</string>
@@ -27,9 +29,15 @@
     <string name="button_post">Post</string>
     <string name="button_done">Done</string>
     <string name="button_add_image">Add Image</string>
-
+    <string name="button_camera">Camera</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="picture">Picture</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
 
     <string-array name="sports_array">
         <item>Shuttle Badminton</item>
@@ -40,4 +48,20 @@
         <item>Chess</item>
         <item>Hockey</item>
     </string-array>
+
+    <!-- Strings related to login -->
+    <string name="prompt_name">Name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="action_sign_in_short">Sign in</string>
 </resources>
