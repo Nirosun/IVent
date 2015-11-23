@@ -28,7 +28,7 @@ public class Event {
 
     }
 
-    public Event(long id, String name, Timestamp eventTime, String location,
+    public Event(String name, Timestamp eventTime, String location,
                  String description, String category_name, String imageLink) {
         super();
         this.name = name;
@@ -39,6 +39,9 @@ public class Event {
         this.category_name = category_name;
     }
 
+    public void eventPrint(){
+        System.out.println( this.name + " " + this.eventTime + " " + this.category_name);
+    }
 
     public String getName() {
         return name;

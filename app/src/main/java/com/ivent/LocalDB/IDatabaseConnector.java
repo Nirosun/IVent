@@ -1,12 +1,11 @@
-package com.ivent.ws.LocalDB;
+package com.ivent.LocalDB;
 
 import com.ivent.entities.model.Category;
+import com.ivent.entities.model.ChatMessage;
 import com.ivent.entities.model.Event;
-import com.ivent.entities.model.Message;
 import com.ivent.entities.model.Post;
 
-import java.sql.Timestamp;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by shuo on 15/11/22.
@@ -16,15 +15,15 @@ public interface IDatabaseConnector {
     public boolean checkUser(String name, String pw);
 
     public void insertCategory(String name);
-    public List<Category> getCategories();
+    public ArrayList<Category> getCategories();
 
     public void insertEvent(Event event);
-    public List<Event> getEventOfCategory(String category_name);
+    public ArrayList<Event> getEventOfCategory(String category_name);
     public Event getEvent(String event_name);
 
     public void insertPost(Post post);
-    public List<Post> getPostsFromEvent(String event_name);
+    public ArrayList<Post> getPostsFromEvent(String event_name);
 
-    public void insertChatMessage(Message message);
-    public List<Message> getMessages(String event_name);
+    public void insertChatMessage(ChatMessage message);
+    public ArrayList<ChatMessage> getMessages(String event_name);
 }

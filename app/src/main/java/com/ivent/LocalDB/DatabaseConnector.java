@@ -1,4 +1,4 @@
-package com.ivent.ws.LocalDB;
+package com.ivent.LocalDB;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
@@ -9,9 +9,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.ivent.entities.model.Category;
+import com.ivent.entities.model.ChatMessage;
+import com.ivent.entities.model.Event;
+import com.ivent.entities.model.Post;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shuo on 15/11/22.
@@ -140,7 +143,7 @@ public class DatabaseConnector implements IDatabaseConnector {
         }
     }
 
-    public void insert_user(String name, String pw){
+    public void insertUser(String name, String pw){
         ContentValues new_record = new ContentValues();
         new_record.put(user_name, name);
         new_record.put(user_password, pw);
@@ -148,7 +151,7 @@ public class DatabaseConnector implements IDatabaseConnector {
         database.insert(table_user, null, new_record);
         return;
     }
-    public boolean check_user(String name, String pw){
+    public boolean checkUser(String name, String pw){
         open();
         Cursor cursor = database.query(table_user,
                 new String[]{user_name, user_password},
@@ -160,14 +163,14 @@ public class DatabaseConnector implements IDatabaseConnector {
         if( cursor.getCount() == 0) return false;
         else return true;
     }
-    public void insert_category(String name){
+    public void insertCategory(String name){
         ContentValues new_record = new ContentValues();
         new_record.put(category_name, name);
         open(); // open the database
         database.insert(table_category, null, new_record);
         return;
     }
-    public List<Category> get_categories(){
+    public ArrayList<Category> getCategories(){
         open();
         Cursor cursor = database.query(table_category,
                 new String[]{category_name},
@@ -179,6 +182,104 @@ public class DatabaseConnector implements IDatabaseConnector {
         ArrayList<Category> ret = new ArrayList<Category>();
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
             ret.add( new Category(cursor.getString(0)));
+        }
+        return ret;
+    }
+
+    public void insertEvent(Event event){
+        ContentValues new_record = new ContentValues();
+        new_record.put(event_category_name, event.getCategory_name());
+        new_record.put(event_description, event.getDescription());
+        new_record.put(event_location, event.getLocation());
+        new_record.put(event_name, event.getName());
+
+        new_record.put(event_time, event.getEventTime().getTime());
+        new_record.put(event_img_link, event.getImageLink());
+        open(); // open the database
+        database.insert(table_events, null, new_record);
+    }
+    public ArrayList<Event> getEventOfCategory(String category_name){
+        Cursor cursor = database.query(table_events,
+                new String[]{event_name, event_time, event_location,event_description, event_category_name,event_img_link},
+                event_category_name + "=? ",
+                new String[]{category_name},
+                null,
+                null,
+                null );
+        ArrayList<Event> ret = new ArrayList<Event>();
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+            Timestamp ts = new Timestamp( cursor.getLong(1));
+            Event event = new Event( cursor.getString(0), ts, cursor.getString(2),
+                            cursor.getString(3), cursor.getString(4), cursor.getString(5));
+            ret.add(event);
+        }
+        return ret;
+    }
+    public Event getEvent(String event_name){
+        Cursor cursor = database.query(table_events,
+                new String[]{event_name, event_time, event_location,event_description, event_category_name,event_img_link},
+                event_name + "=? ",
+                new String[]{event_name},
+                null,
+                null,
+                null );
+        ArrayList<Event> ret = new ArrayList<Event>();
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+            Timestamp ts = new Timestamp( cursor.getLong(1));
+            Event event = new Event( cursor.getString(0), ts, cursor.getString(2),
+                    cursor.getString(3), cursor.getString(4), cursor.getString(5));
+            return event;
+        }
+        return null;
+    }
+    public void insertPost(Post post){
+        ContentValues new_record = new ContentValues();
+        new_record.put(posts_event_name, post.getEvent_name());
+        new_record.put(posts_text, post.getText());
+        new_record.put(posts_ts, post.getTs().getTime());
+        new_record.put(posts_user_name, post.getUsername());
+        open(); // open the database
+        database.insert(table_posts, null, new_record);
+    }
+    public ArrayList<Post> getPostsFromEvent(String event_name){
+        Cursor cursor = database.query(table_posts,
+                new String[]{posts_user_name, posts_event_name,posts_text, posts_ts},
+                posts_event_name + "=? ",
+                new String[]{event_name},
+                null,
+                null,
+                null );
+        ArrayList<Post> ret = new ArrayList<Post>();
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            Timestamp ts = new Timestamp( cursor.getLong(3));
+            Post post = new Post(cursor.getString(0), cursor.getString(1), cursor.getString(2), ts, null);
+            ret.add(post);
+        }
+        return ret;
+    }
+    public void insertChatMessage(ChatMessage message){
+        ContentValues new_record = new ContentValues();
+        new_record.put(chat_message_chat_text, message.getText());
+        new_record.put(chat_message_event_name,message.getEvent_name());
+        new_record.put(chat_messages_ts, message.getTs().getTime());
+        new_record.put(chat_message_user_name, message.getUsername());
+        open(); // open the database
+        database.insert(table_chat_messages, null, new_record);
+        return;
+    }
+    public ArrayList<ChatMessage> getMessages(String event_name){
+        Cursor cursor = database.query(table_chat_messages,
+                new String[]{chat_message_user_name, chat_message_event_name,chat_message_chat_text, chat_messages_ts},
+                chat_message_event_name + "=? ",
+                new String[]{event_name},
+                null,
+                null,
+                null );
+        ArrayList<ChatMessage> ret = new ArrayList<ChatMessage>();
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            Timestamp ts = new Timestamp( cursor.getLong(3));
+            ChatMessage msg = new ChatMessage(cursor.getString(0), cursor.getString(1), cursor.getString(2), ts);
+            ret.add(msg);
         }
         return ret;
     }
