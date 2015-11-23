@@ -8,6 +8,10 @@ import java.sql.Timestamp;
 public class ChatMessage extends Message {
     // TODO: May add other attributes later
 
+    public ChatMessage() {
+
+    }
+
     public ChatMessage(String username, String event_name, String text, Timestamp ts) {
         super(username, event_name, text, ts);
     }

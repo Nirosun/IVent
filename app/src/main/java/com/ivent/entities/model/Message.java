@@ -11,7 +11,7 @@ public abstract class Message {
     private String username;
 
     // related event name
-    private String event_name;
+    private String eventName;
 
     // text of the message
     private String text;
@@ -19,9 +19,13 @@ public abstract class Message {
     // timestamp of the message
     private Timestamp ts;
 
-    public Message(String username, String event_name, String text, Timestamp ts) {
+    public Message() {
+
+    }
+
+    public Message(String username, String eventName, String text, Timestamp ts) {
         this.username = username;
-        this.event_name = event_name;
+        this.eventName = eventName;
         this.text = text;
         this.ts = ts;
     }
@@ -30,9 +34,9 @@ public abstract class Message {
 
     public void setUsername(String name) { this.username = name;}
 
-    public String getEvent_name() {return this.event_name;}
+    public String getEventName() {return this.eventName;}
 
-    public void setEvent_name(String name) { this.event_name = name;}
+    public void setEventName(String name) { this.eventName = name;}
 
     public String getText() {
         return text;

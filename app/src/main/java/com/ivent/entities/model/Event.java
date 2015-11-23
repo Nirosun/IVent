@@ -13,7 +13,7 @@ public class Event {
     private Timestamp eventTime;
 
     // event category name
-    private String category_name;
+    private String categoryName;
 
     // event location
     private String location;
@@ -29,18 +29,18 @@ public class Event {
     }
 
     public Event(String name, Timestamp eventTime, String location,
-                 String description, String category_name, String imageLink) {
+                 String description, String categoryName, String imageLink) {
         super();
         this.name = name;
         this.eventTime = eventTime;
         this.location = location;
         this.description = description;
         this.imageLink = imageLink;
-        this.category_name = category_name;
+        this.categoryName = categoryName;
     }
 
     public void eventPrint(){
-        System.out.println( this.name + " " + this.eventTime + " " + this.category_name);
+        System.out.println( this.name + " " + this.eventTime + " " + this.categoryName);
     }
 
     public String getName() {
@@ -51,9 +51,9 @@ public class Event {
         this.name = name;
     }
 
-    public void setCategory_name(String name) {this.category_name = name;}
+    public void setCategoryName(String name) {this.categoryName = name;}
 
-    public String getCategory_name() { return this.category_name;}
+    public String getCategoryName() { return this.categoryName;}
 
     public Timestamp getEventTime() {
         return eventTime;

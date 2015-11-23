@@ -9,6 +9,10 @@ public class Post extends Message {
     // link to the image in the post
 	private String imageLink;
 
+    public Post() {
+
+    }
+
 	public Post(String username, String event_name, String text, Timestamp ts, String imageLink) {
 		super(username, event_name, text, ts);
 		this.imageLink = imageLink;
