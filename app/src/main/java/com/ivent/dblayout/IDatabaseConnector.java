@@ -14,6 +14,7 @@ import java.util.List;
 public interface IDatabaseConnector {
     public void insertUser(User user);
     public boolean checkUser(User user);
+    public User getUser(String name);
 
     public void insertCategory(Category category);
     public List<Category> getCategories();

@@ -18,7 +18,7 @@ public class IVentException extends Exception {
 
     //Exception enumeration
     public enum ExceptionEnum {
-        MissingInput(1);
+        MissingInput(1), UserExist(2);
         private int errorNumber;
 
         ExceptionEnum(int errorNumber) {

@@ -1,12 +1,12 @@
 package com.ivent.dblayout;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.content.Context;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ivent.entities.model.Category;
 import com.ivent.entities.model.ChatMessage;
@@ -158,14 +158,32 @@ public class DatabaseConnector implements IDatabaseConnector {
     public boolean checkUser(User user) {
         open();
         Cursor cursor = database.query(TABLE_USER,
-                new String[]{USER_NAME, USER_PASSWORD},
-                USER_NAME + "=? and " + USER_PASSWORD + "=?",
-                new String[]{user.getName(), user.getPassword()},
+                new String[]{USER_NAME},
+                USER_NAME + "=?",
+                new String[]{user.getName()},
                 null,
                 null,
                 null);
         if (cursor.getCount() == 0) return false;
         else return true;
+    }
+
+    @Override
+    public User getUser(String name) {
+        open();
+        Cursor cursor = database.query(TABLE_USER,
+                new String[]{USER_NAME, USER_PASSWORD},
+                USER_NAME + "=?",
+                new String[]{name},
+                null,
+                null,
+                null);
+        User user;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            user = new User(cursor.getString(0), cursor.getString(1));
+            return user;
+        }
+        return null;
     }
 
     @Override

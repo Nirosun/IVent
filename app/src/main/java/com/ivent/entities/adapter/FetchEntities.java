@@ -12,7 +12,7 @@ import java.util.List;
  * Created by zzuo on 11/22/15.
  */
 public interface FetchEntities {
-//    public User getUser();
+    public User getUser(String name);
 
     public List<Category> getAllCategories();
 

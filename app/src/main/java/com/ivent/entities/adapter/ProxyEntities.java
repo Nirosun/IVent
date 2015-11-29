@@ -9,6 +9,7 @@ import com.ivent.entities.model.ChatMessage;
 import com.ivent.entities.model.Event;
 import com.ivent.entities.model.Post;
 import com.ivent.entities.model.User;
+import com.ivent.exception.IVentException;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -33,7 +34,10 @@ public abstract class ProxyEntities {
         user.setName(userName);
         user.setPassword(password);
 
-        dbConn.insertUser(user);
+        if (!dbConn.checkUser(user))
+            dbConn.insertUser(user);
+//        else
+//            throw new IVentException(IVentException.ExceptionEnum.UserExist);
     }
 
     public void createCategory(String categoryName) {
@@ -84,6 +88,9 @@ public abstract class ProxyEntities {
         dbConn.insertChatMessage(message);
     }
 
+    public User getUser(String name){
+        return dbConn.getUser(name);
+    }
     public List<Category> getAllCategories() {
         return dbConn.getCategories();
     }

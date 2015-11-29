@@ -21,9 +21,9 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_below="@id/login_progress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_progress">
 
         <RelativeLayout
             android:id="@+id/email_login_form"
@@ -34,25 +34,22 @@
                 android:id="@+id/logo_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ivent_logo"
-                android:layout_alignParentTop="true"/>
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ivent_logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:orientation="vertical"
+                android:layout_below="@id/logo_imageView"
                 android:layout_marginTop="30dp"
-                android:layout_below="@id/logo_imageView">
+                android:orientation="vertical">
 
-                <AutoCompleteTextView
-                    android:id="@+id/email"
+                <EditText
+                    android:id="@+id/name_EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:hint="@string/prompt_name" />
 
                 <EditText
                     android:id="@+id/password"
