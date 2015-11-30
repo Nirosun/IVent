@@ -20,7 +20,7 @@ public interface IDatabaseConnector {
     public List<Category> getCategories();
 
     public void insertEvent(Event event);
-    public List<Event> getEventOfCategory(String category_name);
+    public List<Event> getEventsOfCategory(String category_name);
     public Event getEvent(String event_name);
 
     public void insertPost(Post post);

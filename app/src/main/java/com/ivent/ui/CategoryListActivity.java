@@ -28,14 +28,16 @@ import com.ivent.entities.model.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 public class CategoryListActivity extends ActionBarActivity {
 
-    private static final String TAG = "debug";
-    private static final String _EVENT = "New Event";
-    private static final String _Category = "New Category";
+    private static final String TAG = "CategoryListActivity";
+    private static final String NEW_EVENT = "New Event";
+    private static final String NEW_CATEGORY = "New Category";
+
+    protected static final String CATEGORY_NAME = "Category Name";
+    protected static final String FILTER_DATA = "Filter Data";
 
     private ListView categoryListView;
     private View loadingView;
@@ -43,8 +45,8 @@ public class CategoryListActivity extends ActionBarActivity {
     private List<Category> filterData;
 
     private boolean isEnd = false;
-    private MenuItem newCategory;
-    private MenuItem newEvent;
+    private MenuItem newCategoryMenuItem;
+    private MenuItem newEventMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +64,8 @@ public class CategoryListActivity extends ActionBarActivity {
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String out = "Click" + filterData.get((int) id).getName();
-                Log.v(TAG, out);
-                Intent intent = new Intent(CategoryListActivity.this, CategoryActivity.class);
-                intent.putExtra("categoryName", filterData.get((int) id).getName());
+                Intent intent = new Intent(CategoryListActivity.this, EventListActivity.class);
+                intent.putExtra(CATEGORY_NAME, filterData.get((int) id).getName());
                 startActivity(intent);
             }
         });
@@ -74,25 +74,25 @@ public class CategoryListActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (menu.size() == 0) {
-            newCategory = menu.add(_Category);
-            newEvent = menu.add(_EVENT);
+            newCategoryMenuItem = menu.add(NEW_CATEGORY);
+            newEventMenuItem = menu.add(NEW_EVENT);
         }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.equals(newEvent)) {
+        if (item.equals(newEventMenuItem)) {
             ArrayList<String> list = new ArrayList<>();
             for (int i = 0; i < filterData.size(); i++) {
                 list.add(filterData.get(i).getName());
             }
 
-            Intent intent = new Intent(CategoryListActivity.this, NewEventActivity.class);
-            intent.putStringArrayListExtra("filterData", list);
+            Intent intent = new Intent(CategoryListActivity.this, CreateEventActivity.class);
+            intent.putStringArrayListExtra(FILTER_DATA, list);
             startActivity(intent);
 
-        } else if (item.equals(newCategory)) {
+        } else if (item.equals(newCategoryMenuItem)) {
             AlertDialog.Builder inner = new AlertDialog.Builder(CategoryListActivity.this);
             inner.setTitle(R.string.edit_category);
 
@@ -218,9 +218,7 @@ public class CategoryListActivity extends ActionBarActivity {
                     TextView text1 = (TextView) view.findViewById(android.R.id.text2);
                     text1.setTextSize(18);
                     text1.setPadding(10, 0, 0, 2);
-                    TextView text2 = (TextView) view.findViewById(android.R.id.text1);
                     return view;
-
                 }
             };
             categoryListView.setAdapter(simpleAdapter);

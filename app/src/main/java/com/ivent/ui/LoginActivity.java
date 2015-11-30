@@ -190,7 +190,7 @@ public class LoginActivity extends ActionBarActivity {
                 // Account exists, return true if the password matches.
                 return user;
             }
-            return user;
+            return null;
         }
 
         @Override

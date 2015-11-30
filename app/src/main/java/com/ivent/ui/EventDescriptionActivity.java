@@ -1,6 +1,8 @@
 package com.ivent.ui;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 
 //Activity to show detailed information of an event
 public class EventDescriptionActivity extends ActionBarActivity {
-
     private TextView descriptionTextView;
     private Button chatButton;
     private Button postButton;
@@ -31,38 +32,81 @@ public class EventDescriptionActivity extends ActionBarActivity {
         setContentView(R.layout.activity_event_description);
 
         //UI objects
-        eventListView = (ListView) findViewById(R.id.event_list_view);
+        eventListView = (ListView) findViewById(R.id.event_description_list_view);
         descriptionTextView = (TextView) findViewById(R.id.event_description_text_view);
         chatButton = (Button) findViewById(R.id.event_chat_button);
         postButton = (Button) findViewById(R.id.event_post_button);
         eventImageView = (ImageView) findViewById(R.id.event_image);
 
-        //read values
+        String eventName = getIntent().getStringExtra("event_name");
+        String eventTime = getIntent().getStringExtra("event_time");
+        String eventLocation = getIntent().getStringExtra("event_location");
+        String eventDescription = getIntent().getStringExtra("event_description");
+        String eventImageLink = getIntent().getStringExtra("event_image_link");
+
+        // set data for list view
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(eventName);
+        list.add(eventTime.substring(0, eventTime.length() - 2));
+        list.add(eventLocation);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, list);
+        eventListView.setAdapter(adapter);
+
+        // set cover photo
+//        ContentResolver cr = this.getContentResolver();
+//        try {
+//            System.out.println(eventImageLink);
+//            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(eventImageLink)));
+//            if (bitmap == null) {
+//                System.out.println("bitmap is null");
+//                return;
+//            }
+//            eventImageView.setImageBitmap(bitmap);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+        if (eventImageLink != null) {
+            eventImageView.setImageURI(Uri.parse(eventImageLink));
+        } else {
+            setDefaultCoverPhoto();
+        }
+
+        // set description
+        descriptionTextView.setText(eventDescription);
+
+        // register buttons listeners
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chat_activity = new Intent(EventDescriptionActivity.this, ChatActivity.class);
-                startActivity(chat_activity);
+                Intent chatIntent = new Intent(EventDescriptionActivity.this, ChatActivity.class);
+                startActivity(chatIntent);
             }
         });
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent post_activity = new Intent(EventDescriptionActivity.this, PostActivity.class);
-                startActivity(post_activity);
+                Intent postIntent = new Intent(EventDescriptionActivity.this, PostActivity.class);
+                startActivity(postIntent);
             }
         });
 
-        //Example to show event information list
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("Halloween Party");
-        list.add("Oct 31, 19:00");
-        list.add("Cohon University Center");
-        ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, list);
-        eventListView.setAdapter(myArrayAdapter);
+//        //Example to show event information list
+//        ArrayList<String> list = new ArrayList<String>();
+//        list.add("Halloween Party");
+//        list.add("Oct 31, 19:00");
+//        list.add("Cohon University Center");
+//        ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>
+//                (this, android.R.layout.simple_list_item_1, list);
+//        eventListView.setAdapter(myArrayAdapter);
 
+    }
+
+    private void setDefaultCoverPhoto() {
+        String urlString = "android.resource://" + getPackageName() + "/" + R.mipmap.default_event_cover;
+        eventImageView.setImageURI(Uri.parse(urlString));
     }
 
 
@@ -86,5 +130,12 @@ public class EventDescriptionActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class SetupCoverPhotoAsyncTask extends AsyncTask<String, Integer, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            return null;
+        }
     }
 }

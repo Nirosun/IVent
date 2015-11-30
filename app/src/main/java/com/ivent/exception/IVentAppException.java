@@ -18,7 +18,11 @@ public class IVentAppException extends Exception {
 
     //Exception enumeration
     public enum ExceptionEnum {
-        MissingInput(1), UserExist(2);
+        MISSING_INPUT(1),
+        USER_EXIST(2),
+        MISSING_EVENT_IMAGE(3);
+
+
         private int errorNumber;
 
         ExceptionEnum(int errorNumber) {
@@ -91,7 +95,9 @@ public class IVentAppException extends Exception {
             case 1:
                 fixHelper.fixMissingInput(context);
                 break;
-
+            case 3:
+                fixHelper.fixMissingEventImage(context);
+                break;
             default:
                 break;
         }

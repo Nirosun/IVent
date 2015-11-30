@@ -33,6 +33,7 @@
     <string name="button_post">Post</string>
     <string name="button_done">Done</string>
     <string name="button_add_image">Add Image</string>
+    <string name="button_add_cover_photo">Add Cover Photo</string>
     <string name="button_camera">Camera</string>
 
 

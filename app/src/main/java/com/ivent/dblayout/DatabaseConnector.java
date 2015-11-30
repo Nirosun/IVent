@@ -231,7 +231,9 @@ public class DatabaseConnector implements IDatabaseConnector {
     }
 
     @Override
-    public List<Event> getEventOfCategory(String category_name) {
+    public List<Event> getEventsOfCategory(String category_name) {
+        open();
+
         Cursor cursor = database.query(TABLE_EVENTS,
                 new String[]{EVENT_NAME, EVENT_TIME, EVENT_LOCATION, EVENT_DESCRIPTION, EVENT_CATEGORY_NAME, EVENT_IMG_LINK},
                 EVENT_CATEGORY_NAME + "=? ",

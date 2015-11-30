@@ -36,10 +36,10 @@
             android:name=".ui.ChatActivity"
             android:label="@string/title_activity_chat" />
         <activity
-            android:name=".ui.CategoryActivity"
+            android:name=".ui.EventListActivity"
             android:label="@string/title_activity_category"></activity>
         <activity
-            android:name=".ui.NewEventActivity"
+            android:name=".ui.CreateEventActivity"
             android:label="@string/title_activity_new_event" />
 
         <activity

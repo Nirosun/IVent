@@ -37,7 +37,7 @@ public abstract class ProxyEntities {
         if (!dbConn.checkUser(user))
             dbConn.insertUser(user);
 //        else
-//            throw new IVentException(IVentException.ExceptionEnum.UserExist);
+//            throw new IVentException(IVentException.ExceptionEnum.USER_EXIST);
     }
 
     public void createCategory(String categoryName) {
@@ -96,7 +96,7 @@ public abstract class ProxyEntities {
     }
 
     public List<Event> getEventsByCategoryName(String categoryName) {
-        return dbConn.getEventOfCategory(categoryName);
+        return dbConn.getEventsOfCategory(categoryName);
     }
 
     public Event getEventByName(String eventName) {
