@@ -9,7 +9,6 @@ import com.ivent.entities.model.ChatMessage;
 import com.ivent.entities.model.Event;
 import com.ivent.entities.model.Post;
 import com.ivent.entities.model.User;
-import com.ivent.exception.IVentException;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

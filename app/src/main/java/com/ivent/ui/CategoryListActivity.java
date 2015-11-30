@@ -69,18 +69,6 @@ public class CategoryListActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
-        List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-        simpleAdapter = new SimpleAdapter(getApplicationContext(), list, android.R.layout.simple_list_item_2,
-                new String[]{"title"}, new int[]{android.R.id.text2}) {
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView text1 = (TextView) view.findViewById(android.R.id.text2);
-                text1.setTextSize(18);
-                return view;
-            }
-        };
-        categoryListView.setAdapter(simpleAdapter);
     }
 
     @Override
@@ -150,7 +138,7 @@ public class CategoryListActivity extends ActionBarActivity {
                 Log.v(TAG, filterData.get(i).getName());
                 list.add(item);
             }
-            simpleAdapter = new SimpleAdapter(getApplicationContext(), list, android.R.layout.simple_list_item_2,
+            simpleAdapter = new SimpleAdapter(CategoryListActivity.this, list, android.R.layout.simple_list_item_2,
                     new String[]{"title"}, new int[]{android.R.id.text2}) {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
@@ -222,7 +210,7 @@ public class CategoryListActivity extends ActionBarActivity {
                 list.add(item);
             }
 
-            simpleAdapter = new SimpleAdapter(getApplicationContext(), list, android.R.layout.simple_list_item_2,
+            simpleAdapter = new SimpleAdapter(CategoryListActivity.this, list, android.R.layout.simple_list_item_2,
                     new String[]{"title"}, new int[]{android.R.id.text2}) {
 
                 public View getView(int position, View convertView, ViewGroup parent) {
