@@ -3,19 +3,14 @@ package com.ivent.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -32,29 +27,19 @@ import com.ivent.entities.adapter.BuildEntities;
 import com.ivent.entities.adapter.CreateEntities;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A login screen that offers login via email/password.
  */
-public class SignupActivity extends ActionBarActivity implements LoaderCallbacks<Cursor> {
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+public class SignupActivity extends ActionBarActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private static final String TAG = "debug";
 
     private UserSigninTask mAuthTask = null;
-    String mCurrentPhotoPath;
+    String uriStr;
     // UI references.
     private EditText mPasswordView;
     private View mProgressView;
@@ -81,13 +66,11 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
         uploadImageView = (ImageView) findViewById(R.id.uploadImageView);
         uploadImageButton = (Button) findViewById(R.id.uploadImageButton);
 
-        populateAutoComplete();
-
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptSignin();
+                    attemptSignup();
                     return true;
                 }
                 return false;
@@ -97,7 +80,7 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptSignin();
+                attemptSignup();
             }
         });
 
@@ -125,12 +108,13 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
         if (requestCode == 1) {
             if (data != null) {
                 Uri uri = data.getData();
+                uriStr = uri.toString();
                 ContentResolver cr = this.getContentResolver();
                 try {
                     System.out.println(uri);
                     bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
                     if (bitmap == null) {
-                        System.out.println("hah");
+                        System.out.println("bitmap is null");
                         return;
                     }
                     uploadImageView.setImageBitmap(bitmap);
@@ -143,17 +127,13 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void populateAutoComplete() {
-        getLoaderManager().initLoader(0, null, this);
-    }
-
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to sign up the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptSignin() {
+    private void attemptSignup() {
         if (mAuthTask != null) {
             return;
         }
@@ -232,48 +212,6 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -290,15 +228,8 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            // try {
             CreateEntities creator = new BuildEntities(getApplicationContext());
-            creator.createUser(name, mPassword);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-
+            creator.createUser(name, mPassword, uriStr);
             return true;
         }
 
@@ -308,9 +239,16 @@ public class SignupActivity extends ActionBarActivity implements LoaderCallbacks
             showProgress(false);
 
             if (success) {
+                Bundle bundle = new Bundle();
+                bundle.putString("name", name);
+                bundle.putString("password", mPassword);
+                bundle.putString("photo", uriStr);
+
                 Intent intent = new Intent(SignupActivity.this, CategoryListActivity.class);
-                startActivity(intent);
                 intent.putExtra("user", name);
+                intent.putExtra("bundle", bundle);
+                startActivity(intent);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">IVent</string>
-    <string name="facebook_app_id">1637855536479645</string>
 
     <string name="title_activity_add_friends">Add Friends</string>
     <string name="title_activity_event_description">Event Description</string>
@@ -22,6 +21,11 @@
     <string name="date">date</string>
     <string name="location">Location</string>
     <string name="details">Details</string>
+    <string name="category">Category</string>
+    <string name="edit_category">Create New Category</string>
+    <string name="input_category_name">New Category Name</string>
+    <string name="cancel">Cancel</string>
+    <string name='create'>Create</string>
 
 
     <string name="button_create_post">Create A New Post</string>
@@ -31,23 +35,12 @@
     <string name="button_add_image">Add Image</string>
     <string name="button_camera">Camera</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <string name="picture">Picture</string>
     <string name="description_info">Info</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
-
-    <string-array name="sports_array">
-        <item>Shuttle Badminton</item>
-        <item>Tennis</item>
-        <item>FootBall</item>
-        <item>Basket Ball</item>
-        <item>Table Tennis</item>
-        <item>Chess</item>
-        <item>Hockey</item>
-    </string-array>
 
     <!-- Strings related to login -->
     <string name="prompt_name">Name</string>

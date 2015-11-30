@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.ivent.entities.model.Category;
 import com.ivent.entities.model.ChatMessage;
@@ -38,6 +39,7 @@ public class DatabaseConnector implements IDatabaseConnector {
     /* user table attributes */
     private static final String USER_NAME = "name";
     private static final String USER_PASSWORD = "password";
+    private static final String USER_PHOTO = "photo";
 
     /* categories attributes */
     private static final String CATEGORY_NAME = "name";
@@ -93,7 +95,8 @@ public class DatabaseConnector implements IDatabaseConnector {
             // create users table
             String user_createQuery = "CREATE TABLE " + TABLE_USER + " (" +
                     USER_NAME + " TEXT PRIMARY KEY," +
-                    USER_PASSWORD + " TEXT" +
+                    USER_PASSWORD + " TEXT," +
+                    USER_PHOTO + " TEXT" +
                     ")";
             db.execSQL(user_createQuery);
 
@@ -149,6 +152,7 @@ public class DatabaseConnector implements IDatabaseConnector {
         ContentValues new_record = new ContentValues();
         new_record.put(USER_NAME, user.getName());
         new_record.put(USER_PASSWORD, user.getPassword());
+        new_record.put(USER_PHOTO, user.getPhoto());
         open(); // open the database
         database.insert(TABLE_USER, null, new_record);
         return;
@@ -172,15 +176,15 @@ public class DatabaseConnector implements IDatabaseConnector {
     public User getUser(String name) {
         open();
         Cursor cursor = database.query(TABLE_USER,
-                new String[]{USER_NAME, USER_PASSWORD},
+                new String[]{USER_NAME, USER_PASSWORD, USER_PHOTO},
                 USER_NAME + "=?",
                 new String[]{name},
                 null,
                 null,
                 null);
-        User user;
+        User user = null;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            user = new User(cursor.getString(0), cursor.getString(1));
+            user = new User(cursor.getString(0), cursor.getString(1), cursor.getString(2));
             return user;
         }
         return null;

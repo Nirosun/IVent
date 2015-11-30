@@ -7,14 +7,17 @@ public class User {
     // password of user
     private String password;
 
+    private String photo;
+
     public User() {
 
     }
 
-    public User(String name, String password) {
+    public User(String name, String password, String photo) {
         super();
         this.name = name;
         this.password = password;
+        this.photo = photo;
     }
 
     public String getName() {
@@ -25,7 +28,19 @@ public class User {
         this.name = name;
     }
 
-    public void setPassword(String password) {this.password = password;}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getPassword() {return this.password;}
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

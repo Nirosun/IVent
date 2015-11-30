@@ -4,7 +4,7 @@ package com.ivent.entities.adapter;
  * Created by zzuo on 11/22/15.
  */
 public interface CreateEntities {
-    public void createUser(String userName, String password);
+    public void createUser(String userName, String password, String uri);
 
     public void createCategory(String categoryName);
 

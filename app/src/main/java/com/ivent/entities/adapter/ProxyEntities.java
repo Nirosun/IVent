@@ -29,10 +29,11 @@ public abstract class ProxyEntities {
         dbConn = new DatabaseConnector(context);
     }
 
-    public void createUser(String userName, String password) {
+    public void createUser(String userName, String password, String uri) {
         User user = new User();
         user.setName(userName);
         user.setPassword(password);
+        user.setPhoto(uri);
 
         if (!dbConn.checkUser(user))
             dbConn.insertUser(user);
