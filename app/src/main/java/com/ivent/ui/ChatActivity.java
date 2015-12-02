@@ -13,6 +13,8 @@ import android.widget.ListView;
 import com.ivent.R;
 import com.ivent.ui.adapter.MessagesListAdapter;
 import com.ivent.entities.model.DisplayedMessage;
+import com.ivent.ws.local.AudioService;
+import com.ivent.ws.local.IAudioService;
 
 import java.util.ArrayList;
 
@@ -46,11 +48,15 @@ public class ChatActivity extends ActionBarActivity {
                 listMessages.add(new DisplayedMessage("Shan Gao", editText.getText().toString(), R.drawable.shan, false));
                 adapter = new MessagesListAdapter(ChatActivity.this, listMessages);
                 chatListView.setAdapter(adapter);
+                editText.setText("");
+
+                IAudioService audioService = new AudioService(ChatActivity.this, R.raw.send_message);
+                audioService.start();
             }
         });
 
         //Example to show chat list
-        ArrayList<DisplayedMessage> listMessages = new ArrayList<DisplayedMessage>();
+        listMessages = new ArrayList<DisplayedMessage>();
         listMessages.add(new DisplayedMessage("Zack Zuo", "Hello Everybody.", R.drawable.zhengyang, false));
         listMessages.add(new DisplayedMessage("Shan Gao", "Hi Zack. Anyone else here?", R.drawable.shan, false));
         adapter = new MessagesListAdapter(this, listMessages);
