@@ -68,9 +68,9 @@ public class MessagesListAdapter extends BaseAdapter {
                     null);
         }
 
-        TextView name = (TextView) convertView.findViewById(R.id.chat_title);
-        TextView chatMessage = (TextView) convertView.findViewById(R.id.chat_info);
-        ImageView photo = (ImageView) convertView.findViewById(R.id.chat_icon);
+        TextView name = (TextView) convertView.findViewById(R.id.name_text_view);
+        TextView chatMessage = (TextView) convertView.findViewById(R.id.message_text_view);
+        ImageView photo = (ImageView) convertView.findViewById(R.id.photo_image_view);
 
         chatMessage.setText(displayedMessage.getChatMessage().getText());
         name.setText(displayedMessage.getName());

@@ -56,7 +56,7 @@ public class PostActivity extends ActionBarActivity {
         List<Map<String, Object>> postList = new ArrayList<>();
         simpleAdapter = new SimpleAdapter(this, postList, R.layout.post_item,
                 new String[]{"title", "info", "icon"},
-                new int[]{R.id.post_title, R.id.post_info, R.id.post_icon});
+                new int[]{R.id.name_text_view, R.id.post_text_view, R.id.photo_image_view});
         postListView.setAdapter(simpleAdapter);
 
         postButton.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +119,7 @@ public class PostActivity extends ActionBarActivity {
 
             simpleAdapter = new SimpleAdapter(PostActivity.this, list, R.layout.post_item,
                     new String[]{"title", "info", "icon"},
-                    new int[]{R.id.post_title, R.id.post_info, R.id.post_icon});
+                    new int[]{R.id.name_text_view, R.id.post_text_view, R.id.photo_image_view});
             postListView.setAdapter(simpleAdapter);
             dataArrived(true);
         }

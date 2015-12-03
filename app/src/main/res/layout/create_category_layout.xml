@@ -4,14 +4,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <EditText
-        android:id="@+id/category_name"
-        android:inputType="textEmailAddress"
+        android:id="@+id/name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
+        android:padding="5dp"
         android:hint="@string/input_category_name" />
 
 </LinearLayout>

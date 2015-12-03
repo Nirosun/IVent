@@ -32,6 +32,7 @@
         android:layout_above="@+id/linear_layout"
         android:layout_alignParentTop="true"
         android:fillViewport="true"
+        android:padding="5dp"
         android:scrollbars="vertical">
 
         <ListView

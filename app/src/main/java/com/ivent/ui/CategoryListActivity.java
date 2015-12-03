@@ -109,7 +109,7 @@ public class CategoryListActivity extends ActionBarActivity {
             View dialogView = inflater.inflate(R.layout.create_category_layout, null);
             dialog.setView(dialogView);
 
-            final EditText editText = (EditText) dialogView.findViewById(R.id.category_name);
+            final EditText editText = (EditText) dialogView.findViewById(R.id.name_edit_text);
 
             dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
