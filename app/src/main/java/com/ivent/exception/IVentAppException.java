@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-
+//self defined exceptions
 public class IVentAppException extends Exception {
 
     private int errorNo;//error number
@@ -20,8 +20,8 @@ public class IVentAppException extends Exception {
     public enum ExceptionEnum {
         MISSING_INPUT(1),
         USER_EXIST(2),
-        MISSING_EVENT_IMAGE(3);
-
+        MISSING_EVENT_IMAGE(3),
+        MISSING_USER_IMAGE(4);
 
         private int errorNumber;
 
@@ -42,7 +42,7 @@ public class IVentAppException extends Exception {
     public IVentAppException(ExceptionEnum exceptionEnum) {
         this.errorNo = exceptionEnum.getErrorNumber();
         this.errorMsg = exceptionEnum.toString();
-        log();
+        //log();
     }
 
     public int getErrorNo() {
@@ -94,6 +94,9 @@ public class IVentAppException extends Exception {
         switch (errno) {
             case 1:
                 fixHelper.fixMissingInput(context);
+                break;
+            case 2:
+                fixHelper.fixUserExist(context);
                 break;
             case 3:
                 fixHelper.fixMissingEventImage(context);

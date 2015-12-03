@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//To show a list of categories
 public class CategoryListActivity extends ActionBarActivity {
 
     private static final String TAG = "CategoryListActivity";
@@ -42,9 +43,8 @@ public class CategoryListActivity extends ActionBarActivity {
     private ListView categoryListView;
     private View loadingView;
     private SimpleAdapter simpleAdapter;
-    private List<Category> filterData;
+    private List<Category> categoryList;
 
-    private boolean isEnd = false;
     private MenuItem newCategoryMenuItem;
     private MenuItem newEventMenuItem;
 
@@ -53,19 +53,25 @@ public class CategoryListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
 
+        //UI Objects
         categoryListView = (ListView) findViewById(R.id.category_list);
         loadingView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.listfooter,
                 null);
-
         categoryListView.addFooterView(loadingView);
 
-        new GetCateAsyncTask().execute();
+        final String userName = getIntent().getStringExtra("name");
+        final String userPhoto = getIntent().getStringExtra("photo");
 
+        new GetCategoryAsyncTask().execute();
+
+        //To start event list activity
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CategoryListActivity.this, EventListActivity.class);
-                intent.putExtra(CATEGORY_NAME, filterData.get((int) id).getName());
+                intent.putExtra(CATEGORY_NAME, categoryList.get((int) id).getName());
+                intent.putExtra("userName", userName);
+                intent.putExtra("userPhoto", userPhoto);
                 startActivity(intent);
             }
         });
@@ -82,74 +88,78 @@ public class CategoryListActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //start create new event activity
         if (item.equals(newEventMenuItem)) {
             ArrayList<String> list = new ArrayList<>();
-            for (int i = 0; i < filterData.size(); i++) {
-                list.add(filterData.get(i).getName());
+            for (int i = 0; i < categoryList.size(); i++) {
+                list.add(categoryList.get(i).getName());
             }
 
             Intent intent = new Intent(CategoryListActivity.this, CreateEventActivity.class);
             intent.putStringArrayListExtra(FILTER_DATA, list);
             startActivity(intent);
 
-        } else if (item.equals(newCategoryMenuItem)) {
-            AlertDialog.Builder inner = new AlertDialog.Builder(CategoryListActivity.this);
-            inner.setTitle(R.string.edit_category);
+        }
+        // new category dialog
+        else if (item.equals(newCategoryMenuItem)) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(CategoryListActivity.this);
+            dialog.setTitle(R.string.edit_category);
 
             LayoutInflater inflater = CategoryListActivity.this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.create_category_layout, null);
-            inner.setView(dialogView);
+            dialog.setView(dialogView);
 
             final EditText editText = (EditText) dialogView.findViewById(R.id.category_name);
 
-            inner.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
 
-            inner.setPositiveButton(R.string.create, new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton(R.string.create, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     // create new category
-                    String newName = editText.getText().toString();
-                    updateListView(newName);
+                    String newCategoryName = editText.getText().toString();
+                    new CreateCategoryAsyncTask().execute(newCategoryName);
                     dialog.dismiss();
                 }
             });
 
-            AlertDialog alertDialog = inner.create();
+            AlertDialog alertDialog = dialog.create();
             alertDialog.show();
         }
         return true;
     }
 
-    public class GetCateAsyncTask extends AsyncTask<String, Integer, List<Category>> {
+    //Asynctask to get category list from database and set view
+    public class GetCategoryAsyncTask extends AsyncTask<String, Integer, List<Category>> {
 
         @Override
         protected void onPostExecute(List<Category> result) {
             super.onPostExecute(result);
-            filterData = result;
-            List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-            for (int i = 0; i < filterData.size(); i++) {
-                HashMap<String, String> item = new HashMap<String, String>();
-                item.put("title", filterData.get(i).getName());
-                Log.v(TAG, filterData.get(i).getName());
-                list.add(item);
+            categoryList = result;
+            List<HashMap<String, String>> list = new ArrayList<>();
+            for (int i = 0; i < categoryList.size(); i++) {
+                HashMap<String, String> category = new HashMap<>();
+                category.put("title", categoryList.get(i).getName());
+                Log.v(TAG, categoryList.get(i).getName());
+                list.add(category);
             }
+
             simpleAdapter = new SimpleAdapter(CategoryListActivity.this, list, android.R.layout.simple_list_item_2,
                     new String[]{"title"}, new int[]{android.R.id.text2}) {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView text1 = (TextView) view.findViewById(android.R.id.text2);
-                    text1.setTextSize(18);
-                    text1.setPadding(10, 0, 0, 2);
+                    TextView textView = (TextView) view.findViewById(android.R.id.text2);
+                    textView.setTextSize(18);
                     return view;
                 }
             };
             categoryListView.setAdapter(simpleAdapter);
-            dataArrived(result, true);
+            dataArrived(true);
         }
 
         @Override
@@ -159,14 +169,13 @@ public class CategoryListActivity extends ActionBarActivity {
 
         @Override
         protected List<Category> doInBackground(String... arg0) {
-            List<Category> categories = null;
             FetchEntities fetchEntities = new BuildEntities(getApplicationContext());
-            categories = fetchEntities.getAllCategories();
-            return categories;
+            return fetchEntities.getAllCategories();
         }
 
     }
 
+    //Handler to get message from activity
     Handler handler = new Handler() {
         public void handleMessage(Message paramMessage) {
             if (paramMessage.what == 1) {
@@ -177,9 +186,8 @@ public class CategoryListActivity extends ActionBarActivity {
         }
     };
 
-    public void dataArrived(List list, boolean isEnd) {
-        this.isEnd = isEnd;
-
+    //Send message to handler according to whether data is arrived
+    public void dataArrived(boolean isEnd) {
         Message localMessage = new Message();
         if (!isEnd) {
             localMessage.what = 1;
@@ -189,25 +197,20 @@ public class CategoryListActivity extends ActionBarActivity {
         this.handler.sendMessage(localMessage);
     }
 
-
-    public void updateListView(String category) {
-        new CreateCateAsyncTask().execute(category);
-
-    }
-
-    public class CreateCateAsyncTask extends
+    //Async task to create category in database and set view
+    public class CreateCategoryAsyncTask extends
             AsyncTask<String, Integer, List<Category>> {
 
         @Override
         protected void onPostExecute(List<Category> result) {
             super.onPostExecute(result);
-            filterData = result;
+            categoryList = result;
 
             List<HashMap<String, String>> list = new ArrayList<>();
-            for (int i = 0; i < filterData.size(); i++) {
-                HashMap<String, String> item = new HashMap<String, String>();
-                item.put("title", filterData.get(i).getName());
-                list.add(item);
+            for (int i = 0; i < categoryList.size(); i++) {
+                HashMap<String, String> category = new HashMap<>();
+                category.put("title", categoryList.get(i).getName());
+                list.add(category);
             }
 
             simpleAdapter = new SimpleAdapter(CategoryListActivity.this, list, android.R.layout.simple_list_item_2,
@@ -215,14 +218,13 @@ public class CategoryListActivity extends ActionBarActivity {
 
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView text1 = (TextView) view.findViewById(android.R.id.text2);
-                    text1.setTextSize(18);
-                    text1.setPadding(10, 0, 0, 2);
+                    TextView textView = (TextView) view.findViewById(android.R.id.text2);
+                    textView.setTextSize(18);
                     return view;
                 }
             };
             categoryListView.setAdapter(simpleAdapter);
-            dataArrived(result, true);
+            dataArrived(true);
         }
 
         @Override
@@ -232,11 +234,11 @@ public class CategoryListActivity extends ActionBarActivity {
 
         @Override
         protected List<Category> doInBackground(String... arg0) {
-            List<Category> categories = null;
+            List<Category> categories;
             CreateEntities createEntities = new BuildEntities(getApplicationContext());
             createEntities.createCategory(arg0[0]);
 
-            categories = filterData;
+            categories = categoryList;
             Category category = new Category();
             category.setName(arg0[0]);
             categories.add(category);

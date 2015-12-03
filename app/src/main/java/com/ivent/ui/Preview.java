@@ -12,15 +12,17 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+//activity to show camera and save photo
 public class Preview extends ViewGroup implements SurfaceHolder.Callback {
-    private final String TAG = "debug";
+
+    private final String TAG = "Preview";
 
     SurfaceHolder mHolder;
     Size mPreviewSize;
     List<Size> mSupportedPreviewSizes;
     Camera mCamera;
 
-    Preview(Context context, SurfaceView sv) {
+    public Preview(Context context, SurfaceView sv) {
         super(context);
 
         mHolder = sv.getHolder();
@@ -49,9 +51,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // We purposely disregard child measurements because act as a
-        // wrapper to a SurfaceView that centers the camera preview instead
-        // of stretching it.
         final int width = resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec);
         final int height = resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec);
         setMeasuredDimension(width, height);

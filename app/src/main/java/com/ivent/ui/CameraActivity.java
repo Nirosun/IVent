@@ -28,11 +28,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+//activity to call camera
 public class CameraActivity extends Activity {
-    private static final String TAG = "debug";
+
+    private static final String TAG = "CameraActivity";
     Preview preview;
     Camera camera;
     String filePath;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,6 @@ public class CameraActivity extends Activity {
         setContentView(R.layout.activity_camera);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));

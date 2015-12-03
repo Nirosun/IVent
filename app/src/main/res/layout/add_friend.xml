@@ -2,33 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="5dp">
 
     <ImageView
-        android:id="@+id/item_icon"
+        android:id="@+id/photo_image_view"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:paddingLeft="5dp"
         android:layout_margin="5px" />
 
     <TextView
-        android:id="@+id/item_tv"
+        android:id="@+id/message_text_view"
         android:layout_width="230dp"
         android:layout_height="40dp"
         android:textSize="18dp"
-        android:layout_marginLeft="10dip"
-        android:layout_toRightOf="@id/item_icon"
-        android:gravity="bottom" />
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/photo_image_view" />
 
     <CheckBox
-        android:id="@+id/item_cb"
+        android:id="@+id/check_box"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:layout_marginRight="5dp"
-        android:gravity="bottom" />
+        android:clickable="false" />
 
 </RelativeLayout>

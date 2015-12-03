@@ -1,24 +1,26 @@
 package com.ivent.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.ivent.R;
+import com.ivent.entities.adapter.BuildEntities;
+import com.ivent.entities.adapter.CreateEntities;
+import com.ivent.exception.IVentAppException;
 
 
 //Activity to let user create a post
 public class CreatePostActivity extends ActionBarActivity {
 
-    EditText edit_post;
-    ImageView imageView;
-    Button addImageButton,doneButton;
+    private EditText edit_post;
+    private ImageView imageView;
+    private Button doneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,51 +29,49 @@ public class CreatePostActivity extends ActionBarActivity {
 
         //UI objects
         edit_post = (EditText) findViewById(R.id.edit_post_textView);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        addImageButton = (Button) findViewById(R.id.add_image_button);
+        imageView = (ImageView) findViewById(R.id.image_view);
         doneButton = (Button) findViewById(R.id.done_button);
 
-        //read values
-        edit_post.getText();
+        Intent intent = getIntent();
+        final String eventName = intent.getStringExtra("eventName");
+        final String userName = intent.getStringExtra("userName");
+        final String userPhoto = intent.getStringExtra("userPhoto");
+
+        //Start post activity and send the new post to it
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back_to_post = new Intent(CreatePostActivity.this, PostActivity.class);
-                back_to_post.putExtra("title","Shan");
-                back_to_post.putExtra("info", edit_post.getText().toString());
-                back_to_post.putExtra("icon",R.drawable.shan);
-                startActivity(back_to_post);
-            }
-        });
+                try {
+                    String postText = edit_post.getText().toString();
+                    if (postText.equals("")) {
+                        throw new IVentAppException(IVentAppException.ExceptionEnum.MISSING_INPUT);
+                    }
 
-        addImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    new CreatePostAsyncTask().execute(eventName, postText, userName);
 
+                    Intent intent = new Intent(CreatePostActivity.this, PostActivity.class);
+                    intent.putExtra("eventName", eventName);
+                    intent.putExtra("userName", userName);
+                    intent.putExtra("userPhoto", userPhoto);
+                    startActivity(intent);
+                } catch (IVentAppException e) {
+                    e.fix(CreatePostActivity.this, e.getErrorNo());
+                }
             }
         });
     }
 
+    //Asynctask to create post in database
+    public class CreatePostAsyncTask extends AsyncTask<String, Integer, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String eventName = params[0];
+            String postText = params[1];
+            String userName = params[2];
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_description, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            CreateEntities createEntities = new BuildEntities(CreatePostActivity.this);
+            createEntities.createPost(eventName, postText, userName);
+            return null;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

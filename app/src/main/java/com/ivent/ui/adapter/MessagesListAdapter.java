@@ -2,7 +2,11 @@ package com.ivent.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 import com.ivent.R;
 import com.ivent.entities.model.DisplayedMessage;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -21,21 +26,21 @@ import java.util.List;
 public class MessagesListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<DisplayedMessage> messagesItems;
+    private List<DisplayedMessage> messages;
 
-    public MessagesListAdapter(Context context, List<DisplayedMessage> navDrawerItems) {
+    public MessagesListAdapter(Context context, List<DisplayedMessage> messages) {
         this.context = context;
-        this.messagesItems = navDrawerItems;
+        this.messages = messages;
     }
 
     @Override
     public int getCount() {
-        return messagesItems.size();
+        return messages.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return messagesItems.get(position);
+        return messages.get(position);
     }
 
     @Override
@@ -47,18 +52,13 @@ public class MessagesListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        /**
-         * The following list not implemented reusable list items as list items
-         * are showing incorrect data Add the solution if you have one
-         * */
-
-        DisplayedMessage m = messagesItems.get(position);
+        DisplayedMessage displayedMessage = messages.get(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         // Identifying the message owner
-        if (messagesItems.get(position).isSelf()) {
+        if (messages.get(position).isSelf()) {
             // message belongs to you, so load the right aligned layout
             convertView = mInflater.inflate(R.layout.chat_item_mine,
                     null);
@@ -68,13 +68,22 @@ public class MessagesListAdapter extends BaseAdapter {
                     null);
         }
 
-        TextView lblFrom = (TextView) convertView.findViewById(R.id.chat_title);
-        TextView txtMsg = (TextView) convertView.findViewById(R.id.chat_info);
-        ImageView icon = (ImageView) convertView.findViewById(R.id.chat_icon);
+        TextView name = (TextView) convertView.findViewById(R.id.chat_title);
+        TextView chatMessage = (TextView) convertView.findViewById(R.id.chat_info);
+        ImageView photo = (ImageView) convertView.findViewById(R.id.chat_icon);
 
-        txtMsg.setText(m.getMessage().getText());
-        lblFrom.setText(m.getFromName());
-        icon.setImageResource(m.getIcon());
+        chatMessage.setText(displayedMessage.getChatMessage().getText());
+        name.setText(displayedMessage.getName());
+
+        Uri uri = Uri.parse(displayedMessage.getPhoto());
+        ContentResolver contentResolver = context.getContentResolver();
+        try {
+            System.out.println(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri));
+            photo.setImageBitmap(bitmap);
+        } catch (FileNotFoundException fe) {
+            fe.printStackTrace();
+        }
 
         return convertView;
     }

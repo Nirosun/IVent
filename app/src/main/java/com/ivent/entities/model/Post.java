@@ -13,8 +13,8 @@ public class Post extends Message {
 
     }
 
-	public Post(String username, String event_name, String text, Timestamp ts, String imageLink) {
-		super(username, event_name, text, ts);
+	public Post(String username, String eventName, String text, Timestamp ts, String imageLink) {
+		super(username, eventName, text, ts);
 		this.imageLink = imageLink;
 	}
 

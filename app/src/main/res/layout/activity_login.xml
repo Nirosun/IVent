@@ -31,7 +31,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/logo_imageView"
+                android:id="@+id/logo_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -41,12 +41,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@id/logo_imageView"
+                android:layout_below="@id/logo_image_view"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/name_EditText"
+                    android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_name" />

@@ -24,7 +24,7 @@ import com.ivent.entities.model.User;
 
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class LoginActivity extends ActionBarActivity {
 
@@ -46,7 +46,7 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        nameEditText = (EditText) findViewById(R.id.name_EditText);
+        nameEditText = (EditText) findViewById(R.id.name_edit_text);
         mPasswordView = (EditText) findViewById(R.id.password);
         signInButton = (Button) findViewById(R.id.email_sign_in_button);
         signupButton = (Button) findViewById(R.id.email_sign_up_button);
@@ -79,7 +79,6 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-
     }
 
     /**
@@ -110,7 +109,7 @@ public class LoginActivity extends ActionBarActivity {
             cancel = true;
         }
 
-        // Check for a valid name address.
+        // Check for a valid name.
         if (TextUtils.isEmpty(name)) {
             nameEditText.setError(getString(R.string.error_field_required));
             focusView = nameEditText;
@@ -199,14 +198,9 @@ public class LoginActivity extends ActionBarActivity {
             showProgress(false);
 
             if (user != null) {
-                Bundle bundle = new Bundle();
-                bundle.putString("name", user.getName());
-                bundle.putString("password", user.getPassword());
-                bundle.putString("photo", user.getPhoto());
-
                 Intent intent = new Intent(LoginActivity.this, CategoryListActivity.class);
-                intent.putExtra("user", name);
-                intent.putExtra("bundle", bundle);
+                intent.putExtra("name", name);
+                intent.putExtra("photo", user.getPhoto());
                 startActivity(intent);
 
                 finish();

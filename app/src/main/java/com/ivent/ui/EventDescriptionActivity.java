@@ -2,11 +2,8 @@ package com.ivent.ui;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +17,8 @@ import java.util.ArrayList;
 
 //Activity to show detailed information of an event
 public class EventDescriptionActivity extends ActionBarActivity {
+
+    private static final String TAG = "EventDescription";
     private TextView descriptionTextView;
     private Button chatButton;
     private Button postButton;
@@ -32,13 +31,15 @@ public class EventDescriptionActivity extends ActionBarActivity {
         setContentView(R.layout.activity_event_description);
 
         //UI objects
-        eventListView = (ListView) findViewById(R.id.event_description_list_view);
-        descriptionTextView = (TextView) findViewById(R.id.event_description_text_view);
-        chatButton = (Button) findViewById(R.id.event_chat_button);
-        postButton = (Button) findViewById(R.id.event_post_button);
-        eventImageView = (ImageView) findViewById(R.id.event_image);
+        eventListView = (ListView) findViewById(R.id.detail_list_view);
+        descriptionTextView = (TextView) findViewById(R.id.detail_text_view);
+        chatButton = (Button) findViewById(R.id.chat_button);
+        postButton = (Button) findViewById(R.id.post_button);
+        eventImageView = (ImageView) findViewById(R.id.image_view);
 
-        String eventName = getIntent().getStringExtra("event_name");
+        final String userName = getIntent().getStringExtra("userName");
+        final String userPhoto = getIntent().getStringExtra("userPhoto");
+        final String eventName = getIntent().getStringExtra("event_name");
         String eventTime = getIntent().getStringExtra("event_time");
         String eventLocation = getIntent().getStringExtra("event_location");
         String eventDescription = getIntent().getStringExtra("event_description");
@@ -52,20 +53,6 @@ public class EventDescriptionActivity extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, list);
         eventListView.setAdapter(adapter);
-
-        // set cover photo
-//        ContentResolver cr = this.getContentResolver();
-//        try {
-//            System.out.println(eventImageLink);
-//            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(eventImageLink)));
-//            if (bitmap == null) {
-//                System.out.println("bitmap is null");
-//                return;
-//            }
-//            eventImageView.setImageBitmap(bitmap);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
         if (eventImageLink != null) {
             eventImageView.setImageURI(Uri.parse(eventImageLink));
@@ -81,6 +68,8 @@ public class EventDescriptionActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent chatIntent = new Intent(EventDescriptionActivity.this, ChatActivity.class);
+                chatIntent.putExtra("userName", userName);
+                chatIntent.putExtra("userPhoto", userPhoto);
                 startActivity(chatIntent);
             }
         });
@@ -89,53 +78,19 @@ public class EventDescriptionActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent postIntent = new Intent(EventDescriptionActivity.this, PostActivity.class);
+                postIntent.putExtra("eventName", eventName);
+                postIntent.putExtra("userName", userName);
+                postIntent.putExtra("userPhoto", userPhoto);
                 startActivity(postIntent);
             }
         });
 
-//        //Example to show event information list
-//        ArrayList<String> list = new ArrayList<String>();
-//        list.add("Halloween Party");
-//        list.add("Oct 31, 19:00");
-//        list.add("Cohon University Center");
-//        ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>
-//                (this, android.R.layout.simple_list_item_1, list);
-//        eventListView.setAdapter(myArrayAdapter);
-
     }
 
+    //Set default cover photo if there is no one
     private void setDefaultCoverPhoto() {
         String urlString = "android.resource://" + getPackageName() + "/" + R.mipmap.default_event_cover;
         eventImageView.setImageURI(Uri.parse(urlString));
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_description, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public class SetupCoverPhotoAsyncTask extends AsyncTask<String, Integer, Void> {
-        @Override
-        protected Void doInBackground(String... params) {
-            return null;
-        }
-    }
 }

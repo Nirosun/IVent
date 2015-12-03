@@ -6,7 +6,7 @@
     <string name="title_activity_post">Post</string>
     <string name="title_activity_create_post">Create Post</string>
     <string name="title_activity_chat">Chat</string>
-    <string name="title_activity_category">Category</string>
+    <string name="title_activity_category">Event List</string>
     <string name="title_activity_new_event">New Event</string>
     <string name="title_activity_login">iVent</string>
     <string name="title_activity_category_list">Category List</string>
@@ -56,6 +56,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_signup">Sign Up</string>
     <string name="action_sign_in_short">Sign in</string>
 </resources>

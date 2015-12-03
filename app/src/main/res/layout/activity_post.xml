@@ -5,7 +5,7 @@
     tools:context="com.ivent.ui.PostActivity">
 
     <LinearLayout
-        android:id="@+id/post_linear_layout"
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -23,21 +23,18 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/post_linear_layout"
+        android:layout_above="@+id/linear_layout"
         android:layout_alignParentTop="true"
         android:fillViewport="true"
-        android:gravity="top"
         android:scrollbars="vertical">
 
         <ListView
             android:id="@+id/post_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
             android:clickable="false"
             android:divider="#00FFFFFF"
             android:dividerHeight="10dp"
-            android:listSelector="@android:color/transparent"
             android:padding="5dp"
             android:transcriptMode="alwaysScroll" />
 

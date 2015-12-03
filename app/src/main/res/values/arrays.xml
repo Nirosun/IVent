@@ -83,14 +83,5 @@
         <item>22:00</item>
         <item>23:00</item>
     </string-array>
-
-    <string-array name="category_array">
-        <item>Party</item>
-        <item>Meeting</item>
-        <item>Anniversary</item>
-        <item>Sports</item>
-        <item>Not Categorized</item>
-
-    </string-array>
-
+    
 </resources>

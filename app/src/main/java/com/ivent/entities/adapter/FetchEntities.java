@@ -8,10 +8,11 @@ import com.ivent.entities.model.User;
 
 import java.util.List;
 
-/**
- * Created by zzuo on 11/22/15.
- */
+//interface to fetch entities
 public interface FetchEntities {
+
+    public List<User> getAllUsers();
+
     public User getUser(String name);
 
     public List<Category> getAllCategories();

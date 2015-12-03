@@ -25,21 +25,23 @@ import android.widget.TextView;
 import com.ivent.R;
 import com.ivent.entities.adapter.BuildEntities;
 import com.ivent.entities.adapter.CreateEntities;
+import com.ivent.exception.IVentAppException;
 
 import java.io.FileNotFoundException;
 
 
 /**
- * A login screen that offers login via email/password.
+ * A sign up screen that register user.
  */
 public class SignupActivity extends ActionBarActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private static final String TAG = "debug";
+    private static final String TAG = "SignupActivity";
 
     private UserSigninTask mAuthTask = null;
     String uriStr;
+
     // UI references.
     private EditText mPasswordView;
     private View mProgressView;
@@ -55,16 +57,16 @@ public class SignupActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        // Set up the login form.
-        nameEditText = (EditText) findViewById(R.id.name_EditText);
+        // Set up the register form.
+        nameEditText = (EditText) findViewById(R.id.name_edit_text);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        nameEditText = (EditText) findViewById(R.id.name_EditText);
+        nameEditText = (EditText) findViewById(R.id.name_edit_text);
         mPasswordView = (EditText) findViewById(R.id.password);
-        cameraButton = (Button) findViewById(R.id.cameraButton);
+        cameraButton = (Button) findViewById(R.id.camera_button);
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        uploadImageView = (ImageView) findViewById(R.id.uploadImageView);
-        uploadImageButton = (Button) findViewById(R.id.uploadImageButton);
+        uploadImageView = (ImageView) findViewById(R.id.upload_image_view);
+        uploadImageButton = (Button) findViewById(R.id.upload_image_button);
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -129,7 +131,7 @@ public class SignupActivity extends ActionBarActivity {
 
 
     /**
-     * Attempts to sign up the account specified by the login form.
+     * Attempts to sign up the account specified by the form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
@@ -156,7 +158,7 @@ public class SignupActivity extends ActionBarActivity {
             cancel = true;
         }
 
-        // Check for a valid email address.
+        // Check for a valid name.
         if (TextUtils.isEmpty(name)) {
             nameEditText.setError(getString(R.string.error_field_required));
             focusView = nameEditText;
@@ -213,7 +215,7 @@ public class SignupActivity extends ActionBarActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous registration task used to authenticate
      * the user.
      */
     public class UserSigninTask extends AsyncTask<Void, Void, Boolean> {
@@ -229,8 +231,9 @@ public class SignupActivity extends ActionBarActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             CreateEntities creator = new BuildEntities(getApplicationContext());
-            creator.createUser(name, mPassword, uriStr);
-            return true;
+            if (creator.createUser(name, mPassword, uriStr))
+                return true;
+            return false;
         }
 
         @Override
@@ -251,8 +254,11 @@ public class SignupActivity extends ActionBarActivity {
 
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                try {
+                    throw new IVentAppException(IVentAppException.ExceptionEnum.USER_EXIST);
+                } catch (IVentAppException e) {
+                    e.fix(SignupActivity.this,e.getErrorNo());
+                }
             }
         }
 

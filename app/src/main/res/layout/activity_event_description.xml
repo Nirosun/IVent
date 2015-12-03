@@ -9,33 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/event_chat_button"
+            android:id="@+id/chat_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.5dip"
-            android:background="#3e9cb9"
             android:layout_weight="1"
+            android:background="#3e9cb9"
             android:text="@string/button_chat" />
 
         <Button
-            android:id="@+id/event_post_button"
+            android:id="@+id/post_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.5dip"
-            android:background="#3e9cb9"
             android:layout_weight="1"
+            android:background="#3e9cb9"
             android:text="@string/button_post" />
 
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/relative_layout"
+    <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="fill_parent"
         android:layout_height="250dip"
         android:layout_above="@+id/button_layout"
@@ -43,18 +41,17 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/event_image"
+            android:id="@+id/image_view"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_gravity="top"
             android:adjustViewBounds="true"
             android:src="@drawable/loading" />
 
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/event_image"
+            android:layout_below="@+id/image_view"
             android:fillViewport="true"
             android:scrollbars="vertical">
 
@@ -64,31 +61,29 @@
                 android:orientation="vertical">
 
                 <ListView
-                    android:id="@+id/event_description_list_view"
+                    android:id="@+id/detail_list_view"
                     android:layout_width="fill_parent"
                     android:layout_height="150dip"
-                    android:layout_below="@+id/event_image"
-                    android:layout_marginBottom="2dp"
+                    android:layout_below="@+id/image_view"
                     android:clickable="false"
-                    android:listSelector="@android:color/transparent" />
+                    android:divider="#00FFFFFF" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/event_description_list_view"
-                    android:layout_marginBottom="7dp"
+                    android:layout_below="@id/detail_list_view"
                     android:orientation="horizontal"
-                    android:paddingLeft="5dp">
+                    android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/event_friend1"
+                        android:id="@+id/friend_image_view"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="5px"
                         android:src="@drawable/shan" />
 
                     <ImageView
-                        android:id="@+id/event_friend2"
+                        android:id="@+id/friend_list_view1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="5px"
@@ -97,19 +92,16 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/event_description_text_view"
+                    android:id="@+id/detail_text_view"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/event_picture"
-                    android:layout_marginBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:padding="10dp"
                     android:text="@string/Description" />
             </LinearLayout>
 
         </ScrollView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

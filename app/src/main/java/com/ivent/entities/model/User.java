@@ -1,5 +1,8 @@
 package com.ivent.entities.model;
 
+/**
+ * This class represents a user.
+ */
 public class User {
     // name of user
     private String name;
@@ -19,6 +22,13 @@ public class User {
         this.password = password;
         this.photo = photo;
     }
+
+    public User(String name, String photo) {
+        super();
+        this.name = name;
+        this.photo = photo;
+    }
+
 
     public String getName() {
         return name;

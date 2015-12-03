@@ -4,61 +4,57 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * This class represents a message that can be displayed on ui
+ * This class represents a chatMessage that can be displayed on ui
  */
 public class DisplayedMessage {
-    // the user's name that creates this message
-    private String fromName;
+    // the user's name that creates this chatMessage
+    private String name;
 
-    // the real message
-    private Message message;
+    // the real chatMessage
+    private Message chatMessage;
 
-    // whether this message comes from the user self
+    // whether this chatMessage comes from the user self
     private boolean isSelf;
 
-    // resource id for icon
-    private int icon;
+    // resource id for photo
+    private String photo;
 
-    public DisplayedMessage() {
-    }
-
-    public DisplayedMessage(String fromName, Message message, int icon, boolean isSelf) {
-        this.fromName = fromName;
-        this.message = message;
+    public DisplayedMessage(String name, Message chatMessage, String photo, boolean isSelf) {
+        this.name = name;
+        this.chatMessage = chatMessage;
         this.isSelf = isSelf;
-        this.icon = icon;
+        this.photo = photo;
     }
 
-    // FIXME: Just for demoing, create dummy message
-    public DisplayedMessage(String fromName, String text, int icon, boolean isSelf) {
-        this.fromName = fromName;
-        this.message = new ChatMessage(null,null,text, new Timestamp(new Date().getTime()));
+    public DisplayedMessage(String name, String text, String photo, boolean isSelf) {
+        this.name = name;
+        this.chatMessage = new ChatMessage(null,null,text, new Timestamp(new Date().getTime()));
         this.isSelf = isSelf;
-        this.icon = icon;
+        this.photo = photo;
     }
 
-    public String getFromName() {
-        return fromName;
+    public String getName() {
+        return name;
     }
 
-    public void setFromName(String fromName) {
-        this.fromName = fromName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Message getMessage() {
-        return message;
+    public Message getChatMessage() {
+        return chatMessage;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setChatMessage(Message chatMessage) {
+        this.chatMessage = chatMessage;
     }
 
-    public int getIcon() {
-        return this.icon;
+    public String getPhoto() {
+        return this.photo;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public boolean isSelf() {

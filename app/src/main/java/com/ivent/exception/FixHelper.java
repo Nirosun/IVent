@@ -23,7 +23,22 @@ public class FixHelper {
                 .show();
     }
 
-    // FIXME: now don't need this method
+    public void fixUserExist(Context context){
+        Log.e("Output", "Input Missing! Please don't leave input blank.\n");
+
+        //new alert dialog to alert users to correct input
+        new AlertDialog.Builder(context)
+                .setTitle("User Exist")
+                .setMessage("Please input another user name.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+    }
+
     @Deprecated
     public void fixMissingEventImage(Context context) {
         Log.e("Output", "Input Missing! Please don't leave input blank.\n");

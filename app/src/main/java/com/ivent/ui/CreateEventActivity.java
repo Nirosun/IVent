@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,14 +18,12 @@ import android.widget.Spinner;
 import com.ivent.R;
 import com.ivent.entities.adapter.BuildEntities;
 import com.ivent.entities.adapter.CreateEntities;
-import com.ivent.entities.model.Category;
 import com.ivent.exception.IVentAppException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
-
+//Acitivity to create a new event
 public class CreateEventActivity extends ActionBarActivity {
 
     // event time
@@ -68,18 +64,18 @@ public class CreateEventActivity extends ActionBarActivity {
         setContentView(R.layout.activity_create_event);
 
             /* IO objects, get the input values */
-        yearSpinner = (Spinner) findViewById(R.id.newevent_year);
-        monthSpinner = (Spinner) findViewById(R.id.newevent_month);
-        dateSpinner = (Spinner) findViewById(R.id.newevent_date);
-        timeSpinner = (Spinner) findViewById(R.id.newevent_time);
-        categorySpinner = (Spinner) findViewById(R.id.newevent_category);
-        detailEditText = (EditText) findViewById(R.id.edit_detail);
-        locationEditText = (EditText) findViewById(R.id.edit_location);
-        nameEditText = (EditText) findViewById(R.id.edit_name);
-        imageView = (ImageView) findViewById(R.id.newevent_image_view);
-        doneButton = (Button) findViewById(R.id.newevent_done_button);
-        addFriendsButton = (Button) findViewById(R.id.newevent_add_friends_button);
-        addCoverPhotoButton = (Button) findViewById(R.id.newevent_add_cover_photo_button);
+        yearSpinner = (Spinner) findViewById(R.id.year_spinner);
+        monthSpinner = (Spinner) findViewById(R.id.month_spinner);
+        dateSpinner = (Spinner) findViewById(R.id.date_spinner);
+        timeSpinner = (Spinner) findViewById(R.id.time_spinner);
+        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        detailEditText = (EditText) findViewById(R.id.detail_edit_text);
+        locationEditText = (EditText) findViewById(R.id.location_edit_text);
+        nameEditText = (EditText) findViewById(R.id.name_edit_text);
+        imageView = (ImageView) findViewById(R.id.photo_image_view);
+        doneButton = (Button) findViewById(R.id.done_button);
+        addFriendsButton = (Button) findViewById(R.id.add_friends_button);
+        addCoverPhotoButton = (Button) findViewById(R.id.button_add_cover_photo);
 
         //set up adapters for spinners
         ArrayAdapter<CharSequence> adapterYear = ArrayAdapter.createFromResource(
@@ -113,24 +109,18 @@ public class CreateEventActivity extends ActionBarActivity {
         timeSpinner.setAdapter(adapterTime);
         categorySpinner.setAdapter(adapterCategory);
 
+        //start add friend activity
         addFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent addFriendsIntent = new Intent(CreateEventActivity.this, AddFriendsActivity.class);
-                /* put the other information of events to the add_friend_activity */
-                addFriendsIntent.putExtra("eventName", nameEditText.getText().toString());
-                addFriendsIntent.putExtra("year", yearSpinner.toString());
-                addFriendsIntent.putExtra("month", monthSpinner.toString());
-                addFriendsIntent.putExtra("date", dateSpinner.toString());
-                addFriendsIntent.putExtra("time", timeSpinner.toString());
-                addFriendsIntent.putExtra("location", locationEditText.getText().toString());
-                addFriendsIntent.putExtra("detail", detailEditText.getText().toString());
-                // FIXME: put image here ?
                 startActivity(addFriendsIntent);
             }
         });
 
+        //return to category list activity
         doneButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 try {
@@ -151,11 +141,6 @@ public class CreateEventActivity extends ActionBarActivity {
                         throw new IVentAppException(IVentAppException.ExceptionEnum.MISSING_INPUT);
                     }
 
-                    // FIXME: Now don't require a cover photo to be added
-//                    if (imageURI == null) {
-//                        throw new IVentAppException(IVentAppException.ExceptionEnum.MISSING_EVENT_IMAGE);
-//                    }
-
                     new CreateEventAsyncTask().execute(eventName, category, location, time, details, imageURI);
 
                     Intent intent = new Intent(CreateEventActivity.this, CategoryListActivity.class);
@@ -166,7 +151,9 @@ public class CreateEventActivity extends ActionBarActivity {
             }
         });
 
+        //add cover photo
         addCoverPhotoButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -177,28 +164,7 @@ public class CreateEventActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_event, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    //set up image view as a result of adding cover photo
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
@@ -207,10 +173,10 @@ public class CreateEventActivity extends ActionBarActivity {
                 imageURI = uri.toString();
                 System.out.println("Image uri:" + imageURI);
 
-                ContentResolver cr = this.getContentResolver();
+                ContentResolver contentResolver = this.getContentResolver();
                 try {
                     System.out.println(uri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                    Bitmap bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri));
                     if (bitmap == null) {
                         System.out.println("bitmap is null");
                         return;
@@ -224,6 +190,7 @@ public class CreateEventActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //AsyncTask to create events in database
     public class CreateEventAsyncTask extends AsyncTask<String, Integer, Void> {
         @Override
         protected Void doInBackground(String... params) {
