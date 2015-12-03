@@ -12,6 +12,8 @@ import android.widget.ListView;
 import com.ivent.R;
 import com.ivent.entities.model.DisplayedMessage;
 import com.ivent.ui.adapter.MessagesListAdapter;
+import com.ivent.ws.local.AudioService;
+import com.ivent.ws.local.IAudioService;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,10 @@ public class ChatActivity extends ActionBarActivity {
                 listMessages.add(new DisplayedMessage(userName, editText.getText().toString(), userPhoto, false));
                 adapter = new MessagesListAdapter(ChatActivity.this, listMessages);
                 chatListView.setAdapter(adapter);
+                editText.setText("");
+
+                IAudioService audioService = new AudioService(ChatActivity.this, R.raw.send_message);
+                audioService.start();
             }
         });
 

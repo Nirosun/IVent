@@ -12,15 +12,30 @@ public class AudioService implements IAudioService {
 
     public AudioService(Context context, int id) {
         player = MediaPlayer.create(context, id);
+
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.stop();
+                mp.release();
+                player = null;
+            }
+        });
     }
 
     //start play audio
     public void start() {
-        player.start();
+        if (player != null) {
+            player.start();
+        }
     }
 
     //stop play audio
     public void stop() {
-        player.stop();
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
     }
 }
