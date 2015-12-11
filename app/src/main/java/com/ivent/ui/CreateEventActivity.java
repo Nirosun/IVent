@@ -1,7 +1,9 @@
 package com.ivent.ui;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -194,13 +196,17 @@ public class CreateEventActivity extends ActionBarActivity {
     public class CreateEventAsyncTask extends AsyncTask<String, Integer, Void> {
         @Override
         protected Void doInBackground(String... params) {
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
             String eventName = params[0];
             String category = params[1];
             String location = params[2];
             String time = params[3];
             String details = params[4];
 
-            CreateEntities creator = new BuildEntities(CreateEventActivity.this);
+            CreateEntities creator = new BuildEntities(CreateEventActivity.this, networkStatus);
             creator.createEvent(eventName, category, location, time, details, imageURI);
 
             return null;

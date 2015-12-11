@@ -8,7 +8,7 @@ import android.util.Log;
 //Fix exception
 public class FixHelper {
 
-    public void fixMissingInput(Context context) {
+    protected void fixMissingInput(Context context) {
         Log.e("Output", "Input Missing! Please don't leave input blank.\n");
 
         //new alert dialog to alert users to correct input
@@ -23,8 +23,8 @@ public class FixHelper {
                 .show();
     }
 
-    public void fixUserExist(Context context){
-        Log.e("Output", "Input Missing! Please don't leave input blank.\n");
+    protected void fixUserExist(Context context){
+        Log.e("Output", "User exist!\n");
 
         //new alert dialog to alert users to correct input
         new AlertDialog.Builder(context)
@@ -40,7 +40,7 @@ public class FixHelper {
     }
 
     @Deprecated
-    public void fixMissingEventImage(Context context) {
+    protected void fixMissingEventImage(Context context) {
         Log.e("Output", "Input Missing! Please don't leave input blank.\n");
 
         //new alert dialog to alert users to correct input

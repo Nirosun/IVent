@@ -1,6 +1,8 @@
 package com.ivent.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -43,8 +45,6 @@ public class EventListActivity extends ActionBarActivity {
         eventsListView = (ListView) findViewById(R.id.events_list_view);
 
         categoryName = getIntent().getStringExtra(CategoryListActivity.CATEGORY_NAME);
-        final String userName = getIntent().getStringExtra("userName");
-        final String userPhoto = getIntent().getStringExtra("userPhoto");
 
         new GetEventsAsyncTask().execute();
 
@@ -56,8 +56,6 @@ public class EventListActivity extends ActionBarActivity {
                 Intent intent = new Intent(EventListActivity.this, EventDescriptionActivity.class);
 
                 Event event = events.get(pos);
-                intent.putExtra("userName", userName);
-                intent.putExtra("userPhoto", userPhoto);
                 intent.putExtra("event_name", event.getName());
                 intent.putExtra("event_time", event.getEventTime().toString());
                 intent.putExtra("event_location", event.getLocation());
@@ -95,7 +93,11 @@ public class EventListActivity extends ActionBarActivity {
 
         @Override
         protected List<Event> doInBackground(String... arg0) {
-            FetchEntities fetcher = new BuildEntities(getApplicationContext());
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
+            FetchEntities fetcher = new BuildEntities(getApplicationContext(), networkStatus);
             return fetcher.getEventsByCategoryName(categoryName);
         }
 

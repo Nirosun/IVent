@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -40,7 +42,7 @@ public class SignupActivity extends ActionBarActivity {
     private static final String TAG = "SignupActivity";
 
     private UserSigninTask mAuthTask = null;
-    String uriStr;
+    private String uriStr;
 
     // UI references.
     private EditText mPasswordView;
@@ -230,7 +232,13 @@ public class SignupActivity extends ActionBarActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            CreateEntities creator = new BuildEntities(getApplicationContext());
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
+            System.out.println("network - " + networkStatus);
+
+            CreateEntities creator = new BuildEntities(getApplicationContext(), networkStatus);
             if (creator.createUser(name, mPassword, uriStr))
                 return true;
             return false;
@@ -247,7 +255,15 @@ public class SignupActivity extends ActionBarActivity {
                 bundle.putString("password", mPassword);
                 bundle.putString("photo", uriStr);
 
+                // store user name
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.user_name), name);
+                editor.putString(getString(R.string.user_photo_link), uriStr);
+                editor.apply();
+
                 Intent intent = new Intent(SignupActivity.this, CategoryListActivity.class);
+
                 intent.putExtra("user", name);
                 intent.putExtra("bundle", bundle);
                 startActivity(intent);

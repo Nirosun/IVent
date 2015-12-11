@@ -1,8 +1,10 @@
 package com.ivent.ui;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,9 +61,6 @@ public class CategoryListActivity extends ActionBarActivity {
                 null);
         categoryListView.addFooterView(loadingView);
 
-        final String userName = getIntent().getStringExtra("name");
-        final String userPhoto = getIntent().getStringExtra("photo");
-
         new GetCategoryAsyncTask().execute();
 
         //To start event list activity
@@ -70,8 +69,6 @@ public class CategoryListActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CategoryListActivity.this, EventListActivity.class);
                 intent.putExtra(CATEGORY_NAME, categoryList.get((int) id).getName());
-                intent.putExtra("userName", userName);
-                intent.putExtra("userPhoto", userPhoto);
                 startActivity(intent);
             }
         });
@@ -169,7 +166,11 @@ public class CategoryListActivity extends ActionBarActivity {
 
         @Override
         protected List<Category> doInBackground(String... arg0) {
-            FetchEntities fetchEntities = new BuildEntities(getApplicationContext());
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
+            FetchEntities fetchEntities = new BuildEntities(getApplicationContext(), networkStatus);
             return fetchEntities.getAllCategories();
         }
 
@@ -234,8 +235,12 @@ public class CategoryListActivity extends ActionBarActivity {
 
         @Override
         protected List<Category> doInBackground(String... arg0) {
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
             List<Category> categories;
-            CreateEntities createEntities = new BuildEntities(getApplicationContext());
+            CreateEntities createEntities = new BuildEntities(getApplicationContext(), networkStatus);
             createEntities.createCategory(arg0[0]);
 
             categories = categoryList;

@@ -9,6 +9,8 @@ import com.ivent.entities.model.ChatMessage;
 import com.ivent.entities.model.Event;
 import com.ivent.entities.model.Post;
 import com.ivent.entities.model.User;
+import com.ivent.ws.remote.IServerInteraction;
+import com.ivent.ws.remote.ServerConnector;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -20,10 +22,13 @@ import java.util.TimeZone;
 //abstract class to implement interfaces through BuildEntities
 public abstract class ProxyEntities {
     // Database connector
-    IDatabaseConnector dbConn;
+    private IDatabaseConnector dbConn;
 
-    public ProxyEntities(Context context) {
-        dbConn = new DatabaseConnector(context);
+    private boolean isNetworkOn;
+
+    public ProxyEntities(Context context, boolean isNetworkOn) {
+        this.dbConn = new DatabaseConnector(context);
+        this.isNetworkOn = isNetworkOn;
     }
 
     //create user
@@ -33,11 +38,20 @@ public abstract class ProxyEntities {
         user.setPassword(password);
         user.setPhoto(uri);
 
-        if (!dbConn.checkUser(user)) {
+        if (isNetworkOn) {
+            IServerInteraction serverConn = new ServerConnector();
+
+            boolean success = serverConn.createUserOnServer(user);
             dbConn.insertUser(user);
-            return true;
+
+            return success;
+        } else {
+            if (!dbConn.checkUser(user)) {
+                dbConn.insertUser(user);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     //create category

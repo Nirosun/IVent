@@ -3,7 +3,9 @@ package com.ivent.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -79,6 +81,11 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
+        // FIXME: here set networkStatus
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.network_status), true);
+        editor.apply();
     }
 
     /**
@@ -181,8 +188,11 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected User doInBackground(Void... params) {
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
 
-            FetchEntities fetchEntities = new BuildEntities(getApplicationContext());
+            FetchEntities fetchEntities = new BuildEntities(getApplicationContext(), networkStatus);
             User user = fetchEntities.getUser(name);
 
             if (user != null && user.getPassword().equals(mPassword)) {
@@ -198,9 +208,15 @@ public class LoginActivity extends ActionBarActivity {
             showProgress(false);
 
             if (user != null) {
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.user_name), user.getName());
+                editor.putString(getString(R.string.user_photo_link), user.getPhoto());
+                editor.apply();
+
                 Intent intent = new Intent(LoginActivity.this, CategoryListActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("photo", user.getPhoto());
+//                intent.putExtra("name", name);
+//                intent.putExtra("photo", user.getPhoto());
                 startActivity(intent);
 
                 finish();

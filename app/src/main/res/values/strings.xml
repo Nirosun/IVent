@@ -36,7 +36,10 @@
     <string name="button_add_cover_photo">Add Cover Photo</string>
     <string name="button_camera">Camera</string>
 
-
+    <string name="network_status">Network Status</string>
+    <string name="preference_file_key">ivent.PREFERENCE</string>
+    <string name="user_name">User Name</string>
+    <string name="user_photo_link">User Photo Link</string>
 
     <string name="picture">Picture</string>
     <string name="description_info">Info</string>

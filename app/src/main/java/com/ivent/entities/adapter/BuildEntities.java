@@ -4,7 +4,7 @@ import android.content.Context;
 
 //Intended for null
 public class BuildEntities extends ProxyEntities implements CreateEntities, FetchEntities {
-    public BuildEntities(Context context) {
-        super(context);
+    public BuildEntities(Context context, boolean isNetowrkOn) {
+        super(context, isNetowrkOn);
     }
 }

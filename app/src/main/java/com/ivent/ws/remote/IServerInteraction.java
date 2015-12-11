@@ -1,22 +1,34 @@
 package com.ivent.ws.remote;
 
+import com.ivent.entities.model.Category;
+import com.ivent.entities.model.ChatMessage;
+import com.ivent.entities.model.Event;
+import com.ivent.entities.model.Post;
+import com.ivent.entities.model.User;
+
+import java.net.HttpURLConnection;
+import java.util.List;
+
 /**
  * This interface is for methods that deal with connection and communication
  * with the backend server
  */
+@SuppressWarnings("unused")
 public interface IServerInteraction {
-    /**
-     * Setup connection with the server based on the given url string
-     * @param urlStr url string
-     * @return whether the connection has been successfully setup
-     */
-    public boolean setupConnection(String urlStr);
 
-    /**
-     * Get JSON string from server's response in the connection
-     * @return JSON-format string
-     */
-    public String getJsonStringFromConnection();
+    public boolean createUserOnServer(User user);
 
-    // TODO: Add more methods later
+    public User getUserFromServer(String name);
+
+    public boolean createCategoryOnServer(Category category);
+
+    public List<Category> getCategoriesFromServer(long userId);
+
+    public boolean createEventOnServer(Event event);
+
+    public List<Event> getEventsFromServer(long categoryId);
+
+    public boolean createPostOnServer(Post post);
+
+    public List<Post> getPostsFromServer(long eventId);
 }

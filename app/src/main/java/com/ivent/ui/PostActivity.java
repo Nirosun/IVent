@@ -1,6 +1,8 @@
 package com.ivent.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,8 +50,6 @@ public class PostActivity extends ActionBarActivity {
         postListView.addFooterView(loadingView);
 
         eventName = getIntent().getStringExtra("eventName");
-        final String userName = getIntent().getStringExtra("userName");
-        final String userPhoto = getIntent().getStringExtra("userPhoto");
 
         new getPostAsyncTask().execute(eventName);
 
@@ -64,8 +64,7 @@ public class PostActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent createPostIntent = new Intent(PostActivity.this, CreatePostActivity.class);
                 createPostIntent.putExtra("eventName", eventName);
-                createPostIntent.putExtra("userName", userName);
-                createPostIntent.putExtra("userPhoto", userPhoto);
+                createPostIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(createPostIntent);
             }
         });
@@ -131,7 +130,11 @@ public class PostActivity extends ActionBarActivity {
 
         @Override
         protected Boolean doInBackground(String... arg0) {
-            FetchEntities fetchEntities = new BuildEntities(PostActivity.this);
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
+            FetchEntities fetchEntities = new BuildEntities(PostActivity.this, networkStatus);
             List<Post> posts = fetchEntities.getPostsByEventName(eventName);
             map.put("post", posts);
             List<User> users = new ArrayList<>();

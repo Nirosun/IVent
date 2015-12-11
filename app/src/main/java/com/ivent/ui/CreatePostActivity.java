@@ -1,6 +1,8 @@
 package com.ivent.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -34,8 +36,14 @@ public class CreatePostActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         final String eventName = intent.getStringExtra("eventName");
-        final String userName = intent.getStringExtra("userName");
-        final String userPhoto = intent.getStringExtra("userPhoto");
+
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        final String userName = sharedPref.getString(getString(R.string.user_name), "");
+
+        System.out.println("user name - " + userName);
+
+        final String userPhoto = sharedPref.getString(getString(R.string.user_photo_link), "");
 
         //Start post activity and send the new post to it
         doneButton.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +59,6 @@ public class CreatePostActivity extends ActionBarActivity {
 
                     Intent intent = new Intent(CreatePostActivity.this, PostActivity.class);
                     intent.putExtra("eventName", eventName);
-                    intent.putExtra("userName", userName);
-                    intent.putExtra("userPhoto", userPhoto);
                     startActivity(intent);
                 } catch (IVentAppException e) {
                     e.fix(CreatePostActivity.this, e.getErrorNo());
@@ -63,13 +69,18 @@ public class CreatePostActivity extends ActionBarActivity {
 
     //Asynctask to create post in database
     public class CreatePostAsyncTask extends AsyncTask<String, Integer, Void> {
+
         @Override
         protected Void doInBackground(String... params) {
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
             String eventName = params[0];
             String postText = params[1];
             String userName = params[2];
 
-            CreateEntities createEntities = new BuildEntities(CreatePostActivity.this);
+            CreateEntities createEntities = new BuildEntities(CreatePostActivity.this, networkStatus);
             createEntities.createPost(eventName, postText, userName);
             return null;
         }

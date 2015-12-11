@@ -1,6 +1,7 @@
 package com.ivent.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -205,7 +206,11 @@ public class AddFriendsActivity extends ActionBarActivity {
 
         @Override
         protected List<User> doInBackground(String... arg0) {
-            FetchEntities fetchEntities = new BuildEntities(getApplicationContext());
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            boolean networkStatus = sharedPref.getBoolean(getString(R.string.network_status), false);
+
+            FetchEntities fetchEntities = new BuildEntities(getApplicationContext(), networkStatus);
             return fetchEntities.getAllUsers();
         }
 
