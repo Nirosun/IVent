@@ -64,8 +64,10 @@ public class PostActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent createPostIntent = new Intent(PostActivity.this, CreatePostActivity.class);
                 createPostIntent.putExtra("eventName", eventName);
-                createPostIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(createPostIntent);
+//                createPostIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//                startActivity(createPostIntent);
+
+                startActivityForResult(createPostIntent, 1, null);
             }
         });
     }
@@ -80,6 +82,15 @@ public class PostActivity extends ActionBarActivity {
             }
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            new getPostAsyncTask().execute(eventName);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     //Send message to handler according to whether data is arrived
     public void dataArrived(boolean isEnd) {

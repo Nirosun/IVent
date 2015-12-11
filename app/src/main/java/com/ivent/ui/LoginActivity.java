@@ -195,11 +195,7 @@ public class LoginActivity extends ActionBarActivity {
             FetchEntities fetchEntities = new BuildEntities(getApplicationContext(), networkStatus);
             User user = fetchEntities.getUser(name);
 
-            if (user != null && user.getPassword().equals(mPassword)) {
-                // Account exists, return true if the password matches.
-                return user;
-            }
-            return null;
+            return user;
         }
 
         @Override
@@ -207,7 +203,7 @@ public class LoginActivity extends ActionBarActivity {
             mAuthTask = null;
             showProgress(false);
 
-            if (user != null) {
+            if (user != null && user.getPassword().equals(mPassword)) {
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.user_name), user.getName());
@@ -215,11 +211,12 @@ public class LoginActivity extends ActionBarActivity {
                 editor.apply();
 
                 Intent intent = new Intent(LoginActivity.this, CategoryListActivity.class);
-//                intent.putExtra("name", name);
-//                intent.putExtra("photo", user.getPhoto());
                 startActivity(intent);
 
                 finish();
+            } else if (user == null) {
+                nameEditText.setError(getString(R.string.error_invalid_user_name));
+                nameEditText.requestFocus();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

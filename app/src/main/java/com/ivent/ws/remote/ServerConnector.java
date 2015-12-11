@@ -32,7 +32,7 @@ import java.util.List;
 public class ServerConnector implements IServerInteraction {
 //    private HttpURLConnection connection;
 
-    private static final String BASE_URL = "http://128.237.208.58:8080/IVentServer/ivent/";
+    private static final String BASE_URL = "http://128.237.160.251:8080/IVentServer/ivent/";
 
     @Override
     public boolean createUserOnServer(User user) {

@@ -25,7 +25,8 @@
             android:label="@string/title_activity_event_description" />
         <activity
             android:name=".ui.PostActivity"
-            android:label="@string/title_activity_post" />
+            android:label="@string/title_activity_post"
+            android:parentActivityName=".ui.EventDescriptionActivity"/>
         <activity
             android:name=".ui.AddFriendsActivity"
             android:label="@string/title_activity_add_friends" />
@@ -37,7 +38,7 @@
             android:label="@string/title_activity_chat" />
         <activity
             android:name=".ui.EventListActivity"
-            android:label="@string/title_activity_category"></activity>
+            android:label="@string/title_activity_category"/>
         <activity
             android:name=".ui.CreateEventActivity"
             android:label="@string/title_activity_new_event" />

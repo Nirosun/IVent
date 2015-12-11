@@ -57,9 +57,11 @@ public class CreatePostActivity extends ActionBarActivity {
 
                     new CreatePostAsyncTask().execute(eventName, postText, userName);
 
-                    Intent intent = new Intent(CreatePostActivity.this, PostActivity.class);
-                    intent.putExtra("eventName", eventName);
-                    startActivity(intent);
+//                    Intent intent = new Intent(CreatePostActivity.this, PostActivity.class);
+//                    intent.putExtra("eventName", eventName);
+//                    startActivity(intent);
+
+                    finish();
                 } catch (IVentAppException e) {
                     e.fix(CreatePostActivity.this, e.getErrorNo());
                 }

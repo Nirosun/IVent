@@ -1,5 +1,7 @@
 package com.ivent.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -39,8 +41,14 @@ public class ChatActivity extends ActionBarActivity {
         editText = (EditText) findViewById(R.id.chat_edit_text);
         chatButton = (Button) findViewById(R.id.chat_button);
 
-        final String userName = getIntent().getStringExtra("userName");
-        userPhoto = getIntent().getStringExtra("userPhoto");
+//        final String userName = getIntent().getStringExtra("userName");
+//        userPhoto = getIntent().getStringExtra("userPhoto");
+
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        final String userName = sharedPref.getString(getString(R.string.user_name), "");
+        userPhoto = sharedPref.getString(getString(R.string.user_photo_link), "");
+
         Log.v(TAG, userName);
 
         listMessages = new ArrayList<>();

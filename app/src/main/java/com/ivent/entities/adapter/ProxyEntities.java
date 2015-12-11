@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 //abstract class to implement interfaces through BuildEntities
+@SuppressWarnings("unused")
 public abstract class ProxyEntities {
     // Database connector
     private IDatabaseConnector dbConn;
@@ -73,7 +74,7 @@ public abstract class ProxyEntities {
         event.setImageLink(imageLink);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date;
 
         try {
