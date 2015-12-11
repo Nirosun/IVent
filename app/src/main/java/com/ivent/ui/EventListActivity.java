@@ -25,7 +25,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//To show a list of events under a certain category
+
+/**
+ * To show a list of events under a certain category
+ */
 public class EventListActivity extends ActionBarActivity {
 
     private static final String TAG = "EventListActivity";

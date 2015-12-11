@@ -19,7 +19,9 @@ import com.ivent.ws.local.IAudioService;
 
 import java.util.ArrayList;
 
-//Activity to let users chat with each other
+/**
+ * Activity to let users chat with each other
+ */
 public class ChatActivity extends ActionBarActivity {
 
     private static final String TAG = "ChatActivity";
@@ -68,13 +70,6 @@ public class ChatActivity extends ActionBarActivity {
                 audioService.start();
             }
         });
-
-//        //Example to show chat list
-//        ArrayList<DisplayedMessage> listMessages = new ArrayList<DisplayedMessage>();
-//        listMessages.add(new DisplayedMessage("Zack", "Hello Everybody.", R.drawable.zhengyang, false));
-//        listMessages.add(new DisplayedMessage("Shan", "Hi Zack. Anyone else here?", R.drawable.shan, false));
-//        adapter = new MessagesListAdapter(this, listMessages);
-//        chatListView.setAdapter(adapter);
     }
 
 }

@@ -27,7 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//Activity to let user select friend with checkbox and add them
+/**
+ * Activity to let user select friend with checkbox and add them
+ */
 public class AddFriendsActivity extends ActionBarActivity {
 
     Button doneButton;

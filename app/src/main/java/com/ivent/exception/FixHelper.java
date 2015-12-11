@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
-//Fix exception
+/**
+ * This class provides methods to fix exceptions
+ */
 public class FixHelper {
 
     protected void fixMissingInput(Context context) {

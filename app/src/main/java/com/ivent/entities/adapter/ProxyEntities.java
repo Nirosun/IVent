@@ -17,9 +17,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
-//abstract class to implement interfaces through BuildEntities
+/**
+ * Abstract class to implement methods for BuildEntities
+ */
 @SuppressWarnings("unused")
 public abstract class ProxyEntities {
     // Database connector

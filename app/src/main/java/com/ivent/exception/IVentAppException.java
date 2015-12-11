@@ -9,14 +9,18 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-//self defined exceptions
+/**
+ * This class is for self defined exceptions
+ */
 public class IVentAppException extends Exception {
 
     private int errorNo;//error number
 
     private String errorMsg;//error message
 
-    //Exception enumeration
+    /**
+     * Exception enumeration
+     */
     public enum ExceptionEnum {
         MISSING_INPUT(1),
         USER_EXIST(2),
@@ -61,7 +65,9 @@ public class IVentAppException extends Exception {
         this.errorMsg = errorMsg;
     }
 
-    //Log error message to file
+    /**
+     * Log error message to file
+     */
     public void log() {
         File file = new File("~/AndroidStudioProjects/log.txt");
         try {
@@ -84,8 +90,10 @@ public class IVentAppException extends Exception {
         }
     }
 
-    /*
+    /**
      * Fix different exceptions
+     * @param context
+     * @param errno
      */
     public void fix(Context context, int errno) {
 

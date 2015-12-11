@@ -4,15 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ivent.entities.model.Category;
-import com.ivent.entities.model.ChatMessage;
 import com.ivent.entities.model.Event;
 import com.ivent.entities.model.Post;
 import com.ivent.entities.model.User;
 
-import org.json.JSONArray;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +16,6 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.MalformedInputException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +23,6 @@ import java.util.List;
  * This class is for setup and maintain connection with the server
  */
 public class ServerConnector implements IServerInteraction {
-//    private HttpURLConnection connection;
-
     private static final String BASE_URL = "http://128.237.160.251:8080/IVentServer/ivent/";
 
     @Override

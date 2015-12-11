@@ -28,7 +28,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-//activity to call camera
+/**
+ * activity to call camera
+ */
 public class CameraActivity extends Activity {
 
     private static final String TAG = "CameraActivity";

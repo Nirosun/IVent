@@ -25,7 +25,9 @@ import com.ivent.exception.IVentAppException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-//Acitivity to create a new event
+/**
+ * Acitivity to create a new event
+ */
 public class CreateEventActivity extends ActionBarActivity {
 
     // event time

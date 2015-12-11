@@ -15,7 +15,9 @@ import com.ivent.R;
 
 import java.util.ArrayList;
 
-//Activity to show detailed information of an event
+/**
+ * Activity to show detailed information of an event
+ */
 public class EventDescriptionActivity extends ActionBarActivity {
 
     private static final String TAG = "EventDescription";

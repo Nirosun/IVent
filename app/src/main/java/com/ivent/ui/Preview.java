@@ -12,7 +12,10 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
-//activity to show camera and save photo
+
+/**
+ * activity to show camera and save photo
+ */
 public class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     private final String TAG = "Preview";

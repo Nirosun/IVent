@@ -17,7 +17,9 @@ import com.ivent.entities.adapter.CreateEntities;
 import com.ivent.exception.IVentAppException;
 
 
-//Activity to let user create a post
+/**
+ * Activity to let user create a post
+ */
 public class CreatePostActivity extends ActionBarActivity {
 
     private EditText edit_post;

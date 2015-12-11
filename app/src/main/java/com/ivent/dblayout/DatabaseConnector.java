@@ -18,7 +18,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-//Implementation of sqlite database operations
+/**
+ * Implementation of sqlite database operations
+ */
 public class DatabaseConnector implements IDatabaseConnector {
     private static final String DATABASE_NAME = "iVent_user_local";
     private SQLiteDatabase database = null; // database object
@@ -44,7 +46,6 @@ public class DatabaseConnector implements IDatabaseConnector {
     private static final String POSTS_USER_NAME = "user_name";
     private static final String POSTS_EVENT_NAME = "event_name";
     private static final String POSTS_TEXT = "post_text";
-
 
     /* chat_messages attributes */
     private static final String CHAT_MESSAGES_TS = "timestamp";
@@ -77,6 +78,9 @@ public class DatabaseConnector implements IDatabaseConnector {
             database.close();
     }
 
+    /**
+     * Helper class to create tables in db
+     */
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
         // public constructor
         public DatabaseOpenHelper(Context context, String name,

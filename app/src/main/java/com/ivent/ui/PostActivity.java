@@ -25,7 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//Activity to show event post
+/**
+ * Activity to show event post
+ */
 public class PostActivity extends ActionBarActivity {
 
     private ListView postListView;
